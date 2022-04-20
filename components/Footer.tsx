@@ -12,12 +12,6 @@ import {
 import { FaTwitter } from 'react-icons/fa'
 import { ReactNode } from 'react'
 
-// const Logo = (props: any) => {
-//   return (
-//     <Image src='/images/raishanrise.jpeg' />
-//   );
-// };
-
 const SocialButton = ({
   children,
   label,
