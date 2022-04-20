@@ -21,24 +21,25 @@ const SocialButton = ({
   href: string;
 }) => {
   return (
-    <chakra.button
-      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-      rounded={'full'}
-      w={8}
-      h={8}
-      cursor={'pointer'}
-      as={'a'}
-      href={href}
-      display={'inline-flex'}
-      alignItems={'center'}
-      justifyContent={'center'}
-      transition={'background 0.3s ease'}
-      _hover={{
-        bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
-      }}>
-      <VisuallyHidden>{label}</VisuallyHidden>
-      {children}
-    </chakra.button>
+    <Link href={href} isExternal>
+      <chakra.button
+        bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+        rounded={'full'}
+        w={8}
+        h={8}
+        cursor={'pointer'}
+        as={'a'}
+        display={'inline-flex'}
+        alignItems={'center'}
+        justifyContent={'center'}
+        transition={'background 0.3s ease'}
+        _hover={{
+          bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
+        }}>
+        <VisuallyHidden>{label}</VisuallyHidden>
+        {children}
+      </chakra.button>
+    </Link>
   )
 }
 
@@ -63,9 +64,9 @@ export default function SmallCentered() {
           spacing={4}
           justify={{ base: 'center', md: 'space-between' }}
           align={{ base: 'center', md: 'center' }}>
-          <Text align='center' fontSize='xs'>© 2021-{new Date().getFullYear()} raishanrise. Made with❤️ from  {<Link href='https://twitter.com/RaishanriseOfc' color='purple'>Raishanrise</Link>} by {<Link href='https://twitter.com/kuli_coding' color='purple'>kuli_coding</Link>}</Text>
+          <Text align='center' fontSize='xs'>© 2021-{new Date().getFullYear()} raishanrise. Made with❤️ from  {<Link href='https://twitter.com/RaishanriseOfc' color='purple' isExternal>Raishanrise</Link>} by {<Link href='https://twitter.com/kuli_coding' color='purple' isExternal>kuli_coding</Link>}</Text>
           <Stack direction={'row'} spacing={6}>
-            <SocialButton label={'Twitter'} href={'https://twitter.com/RaishanriseOfc'}>
+            <SocialButton label={'Twitter'} href='https://twitter.com/RaishanriseOfc'>
               <FaTwitter />
             </SocialButton>
           </Stack>
