@@ -13,9 +13,15 @@ import { Main } from '../components/Main'
 import { DarkModeSwitch } from '../components/DarkModeSwitch'
 import { CTA } from '../components/CTA'
 import { Footer } from '../components/Footer'
+import Head from 'next/head'
 
 const Index = () => (
   <Container height="100vh">
+    <Head>
+      <title>Raishanrise</title>
+      <meta name="description" content="Official Raisha Syifa fanbase" />
+      {/* <link rel="icon" href="/favicon.ico" /> */}
+    </Head>
     <Hero />
     <Main>
       <Text>
