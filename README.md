@@ -1,31 +1,64 @@
-# Example app with [chakra-ui](https://github.com/chakra-ui/chakra-ui)
+# nextjs-chakra-navigation-example
 
-This example features how to use [chakra-ui](https://github.com/chakra-ui/chakra-ui) as the component library within a Next.js app.
+I looked at how to implement navigation in next.js and chakra. Since this small project was so complex, I decided to publish it.
 
-We are connecting the Next.js `_app.js` with `chakra-ui`'s Theme and ColorMode containers so the pages can have app-wide dark/light mode. We are also creating some components which shows the usage of `chakra-ui`'s style props.
+Here's a quick rundown of all the commands I've used. I will document this as soon as possible and comment on it as soon as I find time for it.
 
-## Deploy your own
+Create Project
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-chakra-ui)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-chakra-ui&project-name=with-chakra-ui&repository-name=with-chakra-ui)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-chakra-ui with-chakra-ui-app
-# or
-yarn create next-app --example with-chakra-ui with-chakra-ui-app
-# or
-pnpm create next-app -- --example with-chakra-ui with-chakra-ui-app
+```sh
+  npx create-next-app knasan-nextjs-chakra-backend --with-typescript
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Install chakra and chakra icons (MenuBurger in this project)
 
-## Notes
+```sh
+  npm i @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^5 @chakra-ui/icons
+```
 
-Chakra has supported Gradients and RTL in `v1.1`. To utilize RTL, [add RTL direction and swap](https://chakra-ui.com/docs/features/rtl-support).
+Configure Typescript
 
-If you don't have multi-direction app, you should make `<Html lang="ar" dir="rtl">` inside `_document.js`.
+```sh
+touch tsconfig.json
+```
+
+Starting dev server, this fills the tsconfig.json file with simple configuration.
+
+```sh
+npm run dev
+```
+
+Add custom configuration into tsconfig.json
+
+```json
+"baseUrl": ".",
+    "paths" :{
+      "@components/*": ["components/*"],
+      "@styles/*": ["styles/*"],
+    },
+```
+
+These lines set up aliases. This means you can always access the components with "@components" and don't have to think about the levels.
+
+```js
+import Layout from '@components/Layout'
+```
+
+## Build Navigation
+
+I saved all related components in a subfolder of components.
+
+   1. Build Logo.tsx (return a text, but could also return a logo or whatever.)
+   2. Build MenuItem.tsx (return a link)
+   3. Build MenuToogle.tsx (HamburgerMenu for Mobile, Desktop and Tablet)
+   4. Build ToggleLayout (switching from light to dark mode)
+   5. NavBarContainer.tsx (Basically, it's the component that encloses everything else.)
+   6. NavBar.tsx (Is the only component that should actually be used by other sites! In this example, I've packed them into a layout page.)
+
+## Layout
+
+Layout of the pages so that each page always has the same layout and it doesn't have to be rewritten over and over for each page. This got placed in the first level. Everything that I put in the first level, I also use in other pages. I only use everything in subfolders (e.g. navigation) within the components. I came up with this to keep track. If you know a better and easier way, please feel free to share it with me.
+
+## Index
+
+Only uses layout and the layout component takes care of everything. Everything in between is passed on and processed as children.
