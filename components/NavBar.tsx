@@ -12,7 +12,7 @@ const NavBar = (props) => {
 
     return (
         <NavBarContainer {...props}>
-            {/* <Logo w="200px" /> */}
+            <Logo w="200px" />
             <MenuLinks isOpen={isOpen} />
             <ToggleLayout />
             <MenuToggle toggle={toggle} isOpen />
