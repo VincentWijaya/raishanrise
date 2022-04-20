@@ -7,7 +7,6 @@ import {
   Text,
   useColorModeValue,
   VisuallyHidden,
-  Center
 } from '@chakra-ui/react';
 import { FaTwitter } from 'react-icons/fa'
 import { ReactNode } from 'react'
