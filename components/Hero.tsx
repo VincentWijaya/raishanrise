@@ -103,7 +103,7 @@ export default function CallToActionWithVideo() {
                 position: 'absolute',
                 bottom: 1,
                 left: 0,
-                bg: 'red.400',
+                bg: 'blue.400',
                 zIndex: -1,
               }}>
               Raisha Syifa
@@ -123,9 +123,9 @@ export default function CallToActionWithVideo() {
               size={'lg'}
               fontWeight={'normal'}
               px={6}
-              colorScheme={'red'}
-              bg={'red.400'}
-              _hover={{ bg: 'red.500' }}
+              colorScheme={'blue'}
+              bg={'blue.400'}
+              _hover={{ bg: 'blue.500' }}
               >
               <Link href='https://jkt48.com/member/detail/id/255' isExternal>Official Site</Link>
             </Button>
@@ -144,7 +144,7 @@ export default function CallToActionWithVideo() {
             top={'-20%'}
             left={0}
             zIndex={-1}
-            color={useColorModeValue('red.50', 'red.400')}
+            color={useColorModeValue('blue.50', 'blue.400')}
           />
           { isPlaying ? playVideo() : showImage() }
         </Flex>
