@@ -8,22 +8,19 @@ export default function Layout() {
     const [scrollY, setScrollY] = useState(0)
 
     useEffect(() => {
-      const handleScroll = () => {
+      const handleScroll = (e) => {
         setScrollY(window.scrollY)
       }
 
-      handleScroll()
-
-      window.addEventListener("scroll", handleScroll)
+      window.addEventListener("scroll", e => handleScroll(e))
       return () => {
-        window.removeEventListener("scroll", handleScroll)
+        window.removeEventListener("scroll", e => handleScroll(e))
       }
     }, [])
 
     return (
         <>
             <Box h='calc(100vh)'>
-            {console.log(`\n ===> ` +scrollY)}
                 <ScaleFade
                   initialScale={0.9}
                   in={
@@ -33,14 +30,7 @@ export default function Layout() {
                   <NavBar />
                 </ScaleFade>
                 <Hero />
-                <ScaleFade
-                  initialScale={0.9}
-                  in={
-                    scrollY > 100 ? true : false
-                  }
-                >
-                  <Footer />
-                </ScaleFade>
+                <Footer />
             </Box>
         </>
     )

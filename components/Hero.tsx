@@ -92,21 +92,21 @@ export default function CallToActionWithVideo() {
           <Heading
             lineHeight={1.1}
             fontWeight={600}
-            fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}>
+            fontSize={{ base: '2xl', sm: '4xl', lg: '6xl' }}>
             <Text
               as={'span'}
               position={'relative'}
               _after={{
                 content: "''",
                 width: 'full',
-                height: '30%',
+                height: '20%',
                 position: 'absolute',
                 bottom: 1,
                 left: 0,
                 bg: 'blue.400',
                 zIndex: -1,
               }}>
-              Raisha Syifa
+              Raisha Syifa Wardhana
             </Text>
           </Heading>
           <Text color={'gray.500'}>
@@ -118,17 +118,19 @@ export default function CallToActionWithVideo() {
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row' }}>
-            <Button
-              rounded={'full'}
-              size={'lg'}
-              fontWeight={'normal'}
-              px={6}
-              colorScheme={'blue'}
-              bg={'blue.400'}
-              _hover={{ bg: 'blue.500' }}
-              >
-              <Link href='https://jkt48.com/member/detail/id/255' isExternal>Official Site</Link>
-            </Button>
+            <Link href='https://jkt48.com/member/detail/id/255' isExternal>
+              <Button
+                rounded={'full'}
+                size={'lg'}
+                fontWeight={'normal'}
+                px={6}
+                colorScheme={'blue'}
+                bg={'blue.400'}
+                _hover={{ bg: 'blue.500' }}
+                >
+                Official Site
+              </Button>
+            </Link>
           </Stack>
         </Stack>
         <Flex
