@@ -179,8 +179,8 @@ export default function CallToActionWithVideo() {
             position={'absolute'}
             top={'-20%'}
             left={0}
-            zIndex={-1}
-            color={useColorModeValue('blue.50', 'blue.400')}
+            zIndex='-1'
+            color={useColorModeValue('blue.50', 'blue.300')}
           />
           { isPlaying ? playVideo() : showImage() }
         </Flex>

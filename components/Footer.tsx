@@ -47,7 +47,9 @@ export default function SmallCentered() {
     <Box
     borderTopWidth={1}
     borderStyle={'solid'}
-    borderColor={useColorModeValue('gray.200', 'gray.700')}>
+    borderColor={useColorModeValue('gray.200', 'gray.700')}
+    bg={useColorModeValue('white', 'black')}
+    >
     <Container
       as={Stack}
       maxW={'6xl'}
