@@ -82,7 +82,7 @@ export default function CallToActionWithVideo() {
   }
 
   return (
-    <Container maxW={'7xl'}>
+    <Container maxW={'7xl'} pt='5vh'>
       <Stack
         align={'center'}
         spacing={{ base: 8, md: 10 }}
@@ -95,7 +95,7 @@ export default function CallToActionWithVideo() {
             fontSize={{ base: '2xl', sm: '4xl', lg: '6xl' }}>
             <Text
               as={'span'}
-              position={'relative'}
+              position={'inherit'}
               _after={{
                 content: "''",
                 width: 'full',
@@ -103,7 +103,7 @@ export default function CallToActionWithVideo() {
                 position: 'absolute',
                 bottom: 1,
                 left: 0,
-                bg: 'blue.400',
+                // bg: 'blue.400',
                 zIndex: -1,
               }}>
               Raisha Syifa Wardhana

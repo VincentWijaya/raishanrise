@@ -11,7 +11,9 @@ const NavBarContainer = ({ children, ...extraStyles }) => {
             mb={8}
             p={8}
             bg={useColorModeValue('gray.100', 'gray.900')}
-            {...extraStyles}>
+            {...extraStyles}
+            position='fixed'
+            >
             {children}
         </Flex>
     )

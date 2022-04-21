@@ -21,14 +21,15 @@ export default function Layout() {
     return (
         <>
             <Box h='calc(100vh)'>
-                <ScaleFade
+                {/* <ScaleFade
                   initialScale={0.9}
                   in={
                     scrollY > 50 ? false : true
                   }
                 >
                   <NavBar />
-                </ScaleFade>
+                </ScaleFade> */}
+                <NavBar />
                 <Hero />
                 <Footer />
             </Box>
