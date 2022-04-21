@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Text, useColorModeValue } from "@chakra-ui/react"
+import { Box, useColorModeValue } from "@chakra-ui/react"
 import Typed from "react-typed"
 
 export default function Logo(props) {

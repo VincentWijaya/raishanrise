@@ -2,7 +2,8 @@ import { Box, Text } from "@chakra-ui/react"
 import NavBar from './NavBar'
 import Footer from './Footer'
 import Hero from '@components/Hero'
-import { useEffect, useState } from "react"
+// import { useEffect, useState } from "react"
+import Stats from './Stats'
 
 export default function Layout() {
     // const [scrollY, setScrollY] = useState(0)
@@ -22,7 +23,10 @@ export default function Layout() {
         <>
             <Box h='calc(100vh)'>
                 <NavBar />
+
                 <Hero />
+                <Stats />
+
                 <Footer />
             </Box>
         </>
