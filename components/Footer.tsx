@@ -45,32 +45,24 @@ const SocialButton = ({
 export default function SmallCentered() {
   return (
     <Box
-      bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}
-      bottom='0'
-      position='absolute'
-      w='100%'
-    >
-      <Box
-        borderTopWidth={1}
-        borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.700')}>
-        <Container
-          as={Stack}
-          maxW={'6xl'}
-          py={4}
-          direction={{ base: 'column', md: 'row' }}
-          spacing={4}
-          justify={{ base: 'center', md: 'space-between' }}
-          align={{ base: 'center', md: 'center' }}>
-          <Text align='center' fontSize='xs'>© 2021-{new Date().getFullYear()} raishanrise. Made with❤️ from  {<Link href='https://twitter.com/RaishanriseOfc' color='purple' isExternal>Raishanrise</Link>} by {<Link href='https://twitter.com/kuli_coding' color='purple' isExternal>kuli_coding</Link>}</Text>
-          <Stack direction={'row'} spacing={6}>
-            <SocialButton label={'Twitter'} href='https://twitter.com/RaishanriseOfc'>
-              <FaTwitter />
-            </SocialButton>
-          </Stack>
-        </Container>
-      </Box>
-    </Box>
+    borderTopWidth={1}
+    borderStyle={'solid'}
+    borderColor={useColorModeValue('gray.200', 'gray.700')}>
+    <Container
+      as={Stack}
+      maxW={'6xl'}
+      py={4}
+      direction={{ base: 'column', md: 'row' }}
+      spacing={4}
+      justify={{ base: 'center', md: 'space-between' }}
+      align={{ base: 'center', md: 'center' }}>
+      <Text align='center' fontSize='xs'>© 2021-{new Date().getFullYear()} raishanrise. Made with❤️ from  {<Link href='https://twitter.com/RaishanriseOfc' color='purple' isExternal>Raishanrise</Link>} by {<Link href='https://twitter.com/kuli_coding' color='purple' isExternal>kuli_coding</Link>}</Text>
+      <Stack direction={'row'} spacing={6}>
+        <SocialButton label={'Twitter'} href='https://twitter.com/RaishanriseOfc'>
+          <FaTwitter />
+        </SocialButton>
+      </Stack>
+    </Container>
+  </Box>
   )
 }
