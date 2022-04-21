@@ -12,10 +12,10 @@ import {
   createIcon,
   IconProps,
   useColorModeValue,
-  Link,
   AspectRatio
 } from '@chakra-ui/react'
 import { useState } from 'react'
+import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
 
 export default function CallToActionWithVideo() {
   const [ isPlaying, setPlay ] = useState(false)
@@ -118,7 +118,8 @@ export default function CallToActionWithVideo() {
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row' }}>
-            <Link href='https://jkt48.com/member/detail/id/255' isExternal>
+
+            <a target='_blank' href='https://twitter.com/SW_RaishaJKT48'>
               <Button
                 rounded={'full'}
                 size={'lg'}
@@ -127,10 +128,42 @@ export default function CallToActionWithVideo() {
                 colorScheme={'blue'}
                 bg={'blue.400'}
                 _hover={{ bg: 'blue.500' }}
-                >
-                Official Site
+                leftIcon={<FaTwitter />}
+              >
+                Twitter
               </Button>
-            </Link>
+            </a>
+
+            <a target='_blank' href='https://instagram.com/jkt48.raisha.s'>
+              <Button
+                rounded={'full'}
+                size={'lg'}
+                fontWeight={'normal'}
+                px={6}
+                colorScheme={'blue'}
+                bg={'blue.400'}
+                _hover={{ bg: 'blue.500' }}
+                leftIcon={<FaInstagram />}
+              >
+                Instagram
+              </Button>
+            </a>
+
+            <a target='_blank' href='https://tiktok.com/@jkt48.raisha.s'>
+              <Button
+                rounded={'full'}
+                size={'lg'}
+                fontWeight={'normal'}
+                px={6}
+                colorScheme={'blue'}
+                bg={'blue.400'}
+                _hover={{ bg: 'blue.500' }}
+                leftIcon={<FaTiktok />}
+              >
+                Tiktok
+              </Button>
+            </a>
+
           </Stack>
         </Stack>
         <Flex
