@@ -13,6 +13,8 @@ const NavBarContainer = ({ children, ...extraStyles }) => {
             bg={useColorModeValue('gray.100', 'gray.900')}
             {...extraStyles}
             position='fixed'
+            zIndex='banner'
+            opacity='0.9'
             >
             {children}
         </Flex>

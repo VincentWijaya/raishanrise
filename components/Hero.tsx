@@ -103,7 +103,6 @@ export default function CallToActionWithVideo() {
                 position: 'absolute',
                 bottom: 1,
                 left: 0,
-                // bg: 'blue.400',
                 zIndex: -1,
               }}>
               Raisha Syifa Wardhana
@@ -117,7 +116,9 @@ export default function CallToActionWithVideo() {
           </Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}
-            direction={{ base: 'column', sm: 'row' }}>
+            direction={{ base: 'column', sm: 'row' }}
+            align='center'
+          >
 
             <a target='_blank' href='https://twitter.com/SW_RaishaJKT48'>
               <Button
