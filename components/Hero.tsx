@@ -12,10 +12,14 @@ import {
   createIcon,
   IconProps,
   useColorModeValue,
-  AspectRatio
+  AspectRatio,
+  VStack,
+  StackDivider,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
+import { db } from '../service/firebase'
+import { collection, onSnapshot } from 'firebase/firestore'
 
 export default function CallToActionWithVideo() {
   const [ isPlaying, setPlay ] = useState(false)
@@ -80,6 +84,29 @@ export default function CallToActionWithVideo() {
       </Box>
     )
   }
+
+  const [stats, setStats] = useState({
+    show: '0 Show',
+    setlist: '0 Setlist',
+    unitSong: '0 Unit Song'
+  })
+
+  const getStats = () => {
+    onSnapshot(collection(db, 'stats'), snapshot => {
+      snapshot.docs.map(doc => {
+        setStats(stats => ({
+          ...stats,
+          show: doc.data().show,
+          setlist: doc.data().setlist,
+          unitSong: doc.data().unitSong
+        }))
+      })
+    })
+  }
+
+  useEffect(() => {
+    getStats()
+  }, [])
 
   return (
     <Container maxW={'7xl'} pt='5vh' height={'100%'}>
@@ -185,6 +212,29 @@ export default function CallToActionWithVideo() {
           />
           { isPlaying ? playVideo() : showImage() }
         </Flex>
+        <Box
+          pt='15vh'
+          pb='15vh'
+        >
+          <VStack
+            spacing={{ base: 4, sm: 6 }}
+            divider={<StackDivider borderColor='gray.200' />}
+          >
+
+            <Text fontSize='3xl' opacity='0.9'>
+              {stats.show}
+            </Text>
+
+            <Text fontSize='3xl' opacity='0.9'>
+              {stats.unitSong}
+            </Text>
+
+            <Text fontSize='3xl' opacity='0.9'>
+              {stats.setlist}
+            </Text>
+
+          </VStack>
+        </Box>
       </Stack>
     </Container>
   )

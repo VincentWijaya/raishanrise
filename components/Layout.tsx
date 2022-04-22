@@ -3,7 +3,6 @@ import NavBar from './NavBar'
 import Footer from './Footer'
 import Hero from '@components/Hero'
 // import { useEffect, useState } from "react"
-import Stats from './Stats'
 
 export default function Layout() {
     // const [scrollY, setScrollY] = useState(0)
@@ -25,7 +24,6 @@ export default function Layout() {
                 <NavBar />
 
                 <Hero />
-                <Stats />
 
                 <Footer />
             </Box>

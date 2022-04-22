@@ -45,26 +45,30 @@ const SocialButton = ({
 export default function SmallCentered() {
   return (
     <Box
-    borderTopWidth={1}
-    borderStyle={'solid'}
-    borderColor={useColorModeValue('gray.200', 'gray.700')}
-    bg={useColorModeValue('white', 'black')}
+      borderTopWidth={1}
+      borderStyle={'solid'}
+      borderColor={useColorModeValue('gray.200', 'gray.700')}
+      bg={useColorModeValue('white', 'gray.700')}
+      position= 'fixed'
+      bottom='0'
+      mt='auto'
+      width='full'
     >
-    <Container
-      as={Stack}
-      maxW={'6xl'}
-      py={4}
-      direction={{ base: 'column', md: 'row' }}
-      spacing={4}
-      justify={{ base: 'center', md: 'space-between' }}
-      align={{ base: 'center', md: 'center' }}>
-      <Text align='center' fontSize='xs'>© 2021-{new Date().getFullYear()} raishanrise. Made with❤️ from  {<Link href='https://twitter.com/RaishanriseOfc' color='purple' isExternal>Raishanrise</Link>} by {<Link href='https://twitter.com/kuli_coding' color='purple' isExternal>kuli_coding</Link>}</Text>
-      <Stack direction={'row'} spacing={6}>
-        <SocialButton label={'Twitter'} href='https://twitter.com/RaishanriseOfc'>
-          <FaTwitter />
-        </SocialButton>
-      </Stack>
-    </Container>
-  </Box>
+      <Container
+        as={Stack}
+        maxW={'6xl'}
+        py={4}
+        direction={{ base: 'column', md: 'row' }}
+        spacing={4}
+        justify={{ base: 'center', md: 'space-between' }}
+        align={{ base: 'center', md: 'center' }}>
+        <Text align='center' fontSize='xs'>© 2021-{new Date().getFullYear()} raishanrise. Made with❤️ from  {<Link href='https://twitter.com/RaishanriseOfc' color='purple' isExternal>Raishanrise</Link>} by {<Link href='https://twitter.com/kuli_coding' color='purple' isExternal>kuli_coding</Link>}</Text>
+        <Stack direction={'row'} spacing={6}>
+          <SocialButton label={'Twitter'} href='https://twitter.com/RaishanriseOfc'>
+            <FaTwitter />
+          </SocialButton>
+        </Stack>
+      </Container>
+    </Box>
   )
 }
