@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
       </Head>
-      <ColorModeProvider options={{ initialColorMode: 'dark', useSystemColorMode: true }} />
+      <ColorModeProvider options={{ initialColorMode: 'light', useSystemColorMode: true }} />
       <Component {...pageProps} />
       { poorMe() }
     </ChakraProvider>
