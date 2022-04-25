@@ -241,7 +241,10 @@ export default function CallToActionWithVideo() {
         </Box>
       </Stack>
 
-      <Box pt='1vh'>
+      <Box
+        pt='1vh'
+        pb='10vh'
+      >
         <TwitterTimelineEmbed
             sourceType="profile"
             screenName="SW_RaishaJKT48"
