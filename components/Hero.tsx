@@ -19,12 +19,19 @@ import {
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
-import { db } from '../service/firebase'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { TwitterTimelineEmbed } from 'react-twitter-embed'
 
+import { db } from '../service/firebase'
+
 export default function CallToActionWithVideo() {
   const [ isPlaying, setPlay ] = useState(false)
+  const { colorMode, toggleColorMode } = useColorMode()
+  const [stats, setStats] = useState({
+    show: '0 Show',
+    setlist: '0 Setlist',
+    unitSong: '0 Unit Song'
+  })
 
   const playVideo = () => {
     return (
@@ -87,12 +94,6 @@ export default function CallToActionWithVideo() {
     )
   }
 
-  const [stats, setStats] = useState({
-    show: '0 Show',
-    setlist: '0 Setlist',
-    unitSong: '0 Unit Song'
-  })
-
   const getStats = () => {
     onSnapshot(collection(db, 'stats'), snapshot => {
       snapshot.docs.map(doc => {
@@ -109,8 +110,6 @@ export default function CallToActionWithVideo() {
   useEffect(() => {
     getStats()
   }, [])
-
-  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <Container maxW={'7xl'} pt='5vh' height={'100%'}>
