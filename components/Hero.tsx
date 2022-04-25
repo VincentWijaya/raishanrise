@@ -15,11 +15,13 @@ import {
   AspectRatio,
   VStack,
   StackDivider,
+  useColorMode
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
 import { db } from '../service/firebase'
 import { collection, onSnapshot } from 'firebase/firestore'
+import { TwitterTimelineEmbed } from 'react-twitter-embed'
 
 export default function CallToActionWithVideo() {
   const [ isPlaying, setPlay ] = useState(false)
@@ -107,6 +109,8 @@ export default function CallToActionWithVideo() {
   useEffect(() => {
     getStats()
   }, [])
+
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <Container maxW={'7xl'} pt='5vh' height={'100%'}>
@@ -213,8 +217,7 @@ export default function CallToActionWithVideo() {
           { isPlaying ? playVideo() : showImage() }
         </Flex>
         <Box
-          pt='15vh'
-          pb='15vh'
+          pt='10vh'
         >
           <VStack
             spacing={{ base: 4, sm: 6 }}
@@ -236,6 +239,16 @@ export default function CallToActionWithVideo() {
           </VStack>
         </Box>
       </Stack>
+
+      <Box pt='5vh'>
+        <TwitterTimelineEmbed
+            sourceType="profile"
+            screenName="SW_RaishaJKT48"
+            options={{height: 800}}
+            theme={colorMode}
+            key={colorMode}	
+        />
+      </Box>
     </Container>
   )
 }
