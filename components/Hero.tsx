@@ -218,6 +218,7 @@ export default function CallToActionWithVideo() {
         </Flex>
         <Box
           pt='10vh'
+          pb={{ base: '0', md: '10vh' }}
         >
           <VStack
             spacing={{ base: 4, sm: 6 }}
@@ -240,7 +241,7 @@ export default function CallToActionWithVideo() {
         </Box>
       </Stack>
 
-      <Box pt='5vh'>
+      <Box pt='1vh'>
         <TwitterTimelineEmbed
             sourceType="profile"
             screenName="SW_RaishaJKT48"
