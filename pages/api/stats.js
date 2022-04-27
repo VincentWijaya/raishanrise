@@ -24,6 +24,7 @@ export default async (req, res) => {
         console.log('Failed get stats to firestore', err)
         res.status(400).end()
       }
+      break
     }
     default: {
       res.status(405).end()

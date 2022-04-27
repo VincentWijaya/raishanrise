@@ -14,21 +14,16 @@ import {
   useColorModeValue,
   AspectRatio,
   VStack,
-  StackDivider,
-  useColorMode
+  StackDivider
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
-// import { collection, onSnapshot } from 'firebase/firestore'
-import { TwitterTimelineEmbed } from 'react-twitter-embed'
 import axios from 'axios'
-import { setInterval } from 'timers/promises'
 
-// import { db } from '../service/firebase'
+import Twitter from './Twtiter'
 
 export default function CallToActionWithVideo() {
   const [ isPlaying, setPlay ] = useState(false)
-  const { colorMode, toggleColorMode } = useColorMode()
   const [stats, setStats] = useState({
     show: '0 Show',
     setlist: '0 Setlist',
@@ -235,18 +230,7 @@ export default function CallToActionWithVideo() {
         </Box>
       </Stack>
 
-      <Box
-        pt='1vh'
-        pb='10vh'
-      >
-        <TwitterTimelineEmbed
-            sourceType="profile"
-            screenName="SW_RaishaJKT48"
-            options={{height: 800}}
-            theme={colorMode}
-            key={colorMode}	
-        />
-      </Box>
+      <Twitter />
     </Container>
   )
 }
