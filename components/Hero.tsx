@@ -21,6 +21,7 @@ import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
 import axios from 'axios'
 
 import Twitter from './Twtiter'
+import Instagram from './Instagram'
 
 export default function CallToActionWithVideo() {
   const [ isPlaying, setPlay ] = useState(false)
@@ -230,7 +231,19 @@ export default function CallToActionWithVideo() {
         </Box>
       </Stack>
 
-      <Twitter />
+      <Box
+        pt='1vh'
+        pb='10vh'
+      >
+        <Twitter />
+      </Box>
+
+      <Box
+        pt='1vh'
+        pb='10vh'
+      >
+        <Instagram />
+      </Box>
     </Container>
   )
 }
