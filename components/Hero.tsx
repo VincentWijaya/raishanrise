@@ -19,10 +19,12 @@ import {
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
-import { collection, onSnapshot } from 'firebase/firestore'
+// import { collection, onSnapshot } from 'firebase/firestore'
 import { TwitterTimelineEmbed } from 'react-twitter-embed'
+import axios from 'axios'
+import { setInterval } from 'timers/promises'
 
-import { db } from '../service/firebase'
+// import { db } from '../service/firebase'
 
 export default function CallToActionWithVideo() {
   const [ isPlaying, setPlay ] = useState(false)
@@ -94,21 +96,14 @@ export default function CallToActionWithVideo() {
     )
   }
 
-  const getStats = () => {
-    onSnapshot(collection(db, 'stats'), snapshot => {
-      snapshot.docs.map(doc => {
+  useEffect(() => {
+    axios.get('/api/stats')
+      .then(res => {
         setStats(stats => ({
           ...stats,
-          show: doc.data().show,
-          setlist: doc.data().setlist,
-          unitSong: doc.data().unitSong
+          ...res.data
         }))
       })
-    })
-  }
-
-  useEffect(() => {
-    getStats()
   }, [])
 
   return (
