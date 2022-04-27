@@ -1,15 +1,76 @@
 import {
-  Text
+  Flex,
+  Text,
+  Box,
+  Image,
+  useColorModeValue
 } from '@chakra-ui/react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+
+const photoCard = (post) => {
+  return (
+    <Box
+      bg={useColorModeValue('white', 'gray.800')}
+      maxW="sm"
+      borderWidth="1px"
+      rounded="lg"
+      shadow="lg"
+      position="relative"
+      key={post.url}
+      marginLeft='5vh'
+      >
+
+      <Image
+        src={'https://cors-anywhere.herokuapp.com/' + post.data[0].url}
+        alt={post.caption}
+        roundedTop="lg"
+        crossOrigin='anonymous'
+        loading='eager'
+        sizes='400'
+      />
+
+      <Box p="6">
+        <Flex mt="1" justifyContent="space-between" alignContent="center">
+          <Box
+            fontSize="2xl"
+            fontWeight="semibold"
+            as="h4"
+            lineHeight="tight"
+            isTruncated>
+            {post.caption}
+          </Box>
+        </Flex>
+
+        <Flex justifyContent="space-between" alignContent="center">
+          <Text>{post.username}</Text>
+        </Flex>
+      </Box>
+    </Box>
+  )
+}
 
 export default function Instagram() {
-  const data = [{"url":"instagram.com/p/Cb4wmSfhVOp","data":[{"width":1080,"height":1350,"url":"https://scontent-sin6-1.cdninstagram.com/v/t51.2885-15/277770671_157142000087567_8127773459983242414_n.jpg?stp=dst-jpg_e35_p1080x1080&_nc_ht=scontent-sin6-1.cdninstagram.com&_nc_cat=111&_nc_ohc=pUY7AuRgIEEAX8-WJ5Y&edm=ABmJApABAAAA&ccb=7-4&ig_cache_key=MjgwODIwODEwMDAyNzY4MjIwOQ%3D%3D.2-ccb7-4&oh=00_AT8J0HMkFPb4vGhXn_JLodUXPKrnzraqGNiiH2msnEhM-g&oe=626FC7D5&_nc_sid=6136e7","scans_profile":"e35","estimated_scans_sizes":[20849,41698,62547,83396,104245,116650,148441,168711,187642]},{"width":1080,"height":1350,"url":"https://scontent-sin6-2.cdninstagram.com/v/t51.2885-15/277851768_951668878878413_9014073760051362764_n.jpg?stp=dst-jpg_e35_p1080x1080&_nc_ht=scontent-sin6-2.cdninstagram.com&_nc_cat=105&_nc_ohc=uobIQe8ZOMEAX_7aT27&edm=ABmJApABAAAA&ccb=7-4&ig_cache_key=MjgwODIwODEwMDM0NjQ5NDYwOA%3D%3D.2-ccb7-4&oh=00_AT_H9ZLsbgxpEA51IMdVBlIh47-EJRqRGPGbzJ3_Z3foPw&oe=6270AA9D&_nc_sid=6136e7","scans_profile":"e35","estimated_scans_sizes":[21126,42253,63380,84507,105634,118204,150419,170959,190142]}],"isCarousel":true,"username":"jkt48.raisha.s","caption":"","like":9223,"comment":227},{"url":"instagram.com/p/CZ6kV6MBJlG","data":[{"width":1080,"height":810,"url":"https://scontent-sin6-2.cdninstagram.com/v/t51.2885-15/273854411_482581406710004_4321215980314971879_n.jpg?stp=dst-jpg_e35_s1080x1080&_nc_ht=scontent-sin6-2.cdninstagram.com&_nc_cat=108&_nc_ohc=0lpeZ4qgsLwAX_2KAXe&edm=ABmJApABAAAA&ccb=7-4&ig_cache_key=Mjc3MjY4ODM1MDgwMzY2MjM4Mw%3D%3D.2-ccb7-4&oh=00_AT-YPnlrsuz8PF3LMXRYZmw3ljqewCQv3olWK1zFWrg2cQ&oe=626F8317&_nc_sid=6136e7","scans_profile":"e35","estimated_scans_sizes":[11377,22754,34131,45508,56885,63654,81002,92063,102393]},{"width":1080,"height":811,"url":"https://scontent-sin6-4.cdninstagram.com/v/t51.2885-15/273843397_4648231015281348_4651510431049755493_n.jpg?stp=dst-jpg_e35_s1080x1080&_nc_ht=scontent-sin6-4.cdninstagram.com&_nc_cat=100&_nc_ohc=rqoexGVz65AAX8bN0JZ&edm=ABmJApABAAAA&ccb=7-4&ig_cache_key=Mjc3MjY4ODM1MTEzMDkyMjkzMw%3D%3D.2-ccb7-4&oh=00_AT_vSUSTRZZ1G8Np7g-zzuiOd5BVzUiAZd89N8tkqqW-dQ&oe=627098F5&_nc_sid=6136e7","scans_profile":"e35","estimated_scans_sizes":[13043,26086,39129,52172,65215,72976,92864,105545,117388]},{"width":1080,"height":811,"url":"https://scontent-sin6-3.cdninstagram.com/v/t51.2885-15/273940969_145406191236424_2056482885623842577_n.jpg?stp=dst-jpg_e35_s1080x1080&_nc_ht=scontent-sin6-3.cdninstagram.com&_nc_cat=104&_nc_ohc=t0dDT2VApgcAX9aMxCq&edm=ABmJApABAAAA&ccb=7-4&ig_cache_key=Mjc3MjY4ODM1MDc4Njk0NDY5Ng%3D%3D.2-ccb7-4&oh=00_AT8j_D3vqdFNPnaelD7T5lMkCSWFh1X-7k_qtB4eesHA5A&oe=6270CB70&_nc_sid=6136e7","scans_profile":"e35","estimated_scans_sizes":[12276,24552,36828,49104,61380,68684,87404,99338,110485]},{"width":1080,"height":811,"url":"https://scontent-sin6-1.cdninstagram.com/v/t51.2885-15/273802358_348924300473399_6238538357503408421_n.jpg?stp=dst-jpg_e35_s1080x1080&_nc_ht=scontent-sin6-1.cdninstagram.com&_nc_cat=111&_nc_ohc=8v9uBx7B5dkAX94EGzW&edm=ABmJApABAAAA&ccb=7-4&ig_cache_key=Mjc3MjY4ODM1MTEzMDg1NTg3NQ%3D%3D.2-ccb7-4&oh=00_AT9Z1yY5Z7GBVeiPvN_dZz44ELK5BddxdrvHqM7yO_E8cA&oe=626F4247&_nc_sid=6136e7","scans_profile":"e35","estimated_scans_sizes":[12169,24339,36509,48678,60848,68089,86645,98477,109527]}],"isCarousel":true,"username":"jkt48.raisha.s","caption":"","like":6773,"comment":144},{"url":"instagram.com/p/CZmD2LTv-yZ","data":[{"width":1080,"height":1349,"url":"https://scontent-sin6-2.cdninstagram.com/v/t51.2885-15/273181162_2075720569252961_5714400485833180563_n.jpg?stp=dst-jpg_e35_p1080x1080&_nc_ht=scontent-sin6-2.cdninstagram.com&_nc_cat=105&_nc_ohc=uF4cvAQU6loAX-tXhZi&edm=ABmJApABAAAA&ccb=7-4&ig_cache_key=Mjc2NjkxNTkzMzE0OTU1OTI0MA%3D%3D.2-ccb7-4&oh=00_AT_6yA6MH5Z2ul7RZfN2yD_RbXyV2uLJpFI8rOUIlUieig&oe=62704D92&_nc_sid=6136e7","scans_profile":"e35","estimated_scans_sizes":[18925,37850,56776,75701,94626,105887,134745,153144,170328]},{"width":1080,"height":1349,"url":"https://scontent-sin6-1.cdninstagram.com/v/t51.2885-15/273171542_2879307215663567_6837219726048435850_n.jpg?stp=dst-jpg_e35_p1080x1080&_nc_ht=scontent-sin6-1.cdninstagram.com&_nc_cat=111&_nc_ohc=w1krtTU_5lUAX9_TJ1R&edm=ABmJApABAAAA&ccb=7-4&ig_cache_key=Mjc2NjkxNTkzMzE1NzgyODM3MA%3D%3D.2-ccb7-4&oh=00_AT-f6nvTIcOIs6d0s8wbEjeB6Rkp47M-vI6F_wkY5-Qnow&oe=627020FD&_nc_sid=6136e7","scans_profile":"e35","estimated_scans_sizes":[17664,35329,52994,70659,88323,98834,125770,142944,158983]}],"isCarousel":true,"username":"jkt48.raisha.s","caption":"Holaa","like":7539,"comment":249}]
+  const [posts, setPost] = useState([])
+
+  useEffect(() => {
+    axios.get('/api/instagram')
+      .then(res => {
+        setPost(res.data)
+      })
+  }, [])
 
   return (
-    <Text
-      fontSize={{ base: 'xl', sm: '2xl', lg: '4xl' }}
-    >Instagram Feed</Text>
+    <>
+      <Text
+        fontSize={{ base: 'xl', sm: '2xl', lg: '4xl' }}
+      >Instagram Feed</Text>
 
-    
+      {/* <Flex p={50} w="full" alignItems="center" justifyContent="center">
+        {
+          posts.map(post => photoCard(post))
+        }
+      </Flex> */}
+    </>
   )
 }
