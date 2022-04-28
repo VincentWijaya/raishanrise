@@ -240,7 +240,7 @@ export default function CallToActionWithVideo() {
 
       <Box
         pt='1vh'
-        pb='10vh'
+        pb='30vh'
       >
         <Instagram />
       </Box>
