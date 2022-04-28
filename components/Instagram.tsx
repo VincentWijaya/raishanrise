@@ -36,17 +36,25 @@ export default function Instagram() {
         position="relative"
         key={post.url}
         marginLeft='5vh'
+        transitionProperty='shadow'
+        transitionDuration='1'
+        transitionTimingFunction='ease-in-out'
+        _hover={{
+          shadow: '2xl'
+        }}
         >
   
-        <Image
-          src={'https://cors-anywhere.herokuapp.com/' + post.data[0].url}
-          alt={post.caption}
-          roundedTop="lg"
-          crossOrigin='anonymous'
-          loading='eager'
-          boxSize='400'
-          objectFit='cover'
-        />
+        <Link href={'https://' + post.url} isExternal>
+          <Image
+            src={'https://cors-anywhere.herokuapp.com/' + post.data[0].url}
+            alt={post.caption}
+            roundedTop="lg"
+            crossOrigin='anonymous'
+            loading='eager'
+            boxSize='400'
+            objectFit='cover'
+          />
+        </Link>
   
         <Box p="6">
           <Flex alignItems='center' gap='2'>
