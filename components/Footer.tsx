@@ -62,7 +62,7 @@ export default function SmallCentered() {
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}>
-        <Text align='center' fontSize='xs'>© 2021-{new Date().getFullYear()} raishanrise. Made with❤️ from  {<Link href='https://twitter.com/RaishanriseOfc' color='purple' isExternal>Raishanrise</Link>} by {<Link href='https://twitter.com/kuli_coding' color='purple' isExternal>kuli_coding</Link>}</Text>
+        <Text align='center' fontSize='xs'>© 2021-{new Date().getFullYear()} raishanrise. Made with❤️ from  {<Link href='https://twitter.com/RaishanriseOfc' color='purple' isExternal>Raishanrise</Link>}</Text>
         <Stack direction={'row'} spacing={6}>
           <SocialButton label={'Twitter'} href='https://twitter.com/RaishanriseOfc'>
             <FaTwitter />
