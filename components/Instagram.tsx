@@ -13,10 +13,12 @@ import {
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { FaHeart, FaCommentAlt } from 'react-icons/fa'
+import SimpleImageSlider from "react-simple-image-slider"
 
 export default function Instagram() {
   const [posts, setPost] = useState(null)
   const color = useColorModeValue('white', 'gray.800')
+  const imageURL = process.env.NEXT_PUBLIC_IS_DEV ? 'https://cors-anywhere.herokuapp.com/' : ''
 
   useEffect(() => {
     axios.get('/api/instagram')
@@ -25,6 +27,15 @@ export default function Instagram() {
       })
   }, [])
 
+  const constructImages = (images) => {
+
+    const data = images.map((image) => {
+      return {url: imageURL + image.url}
+    })
+
+    return data
+  }
+  
   const photoCard = (post) => {
     return (
       <Box
@@ -44,17 +55,30 @@ export default function Instagram() {
         }}
         >
   
-        <Link href={'https://' + post.url} isExternal>
-          <Image
-            src={'https://cors-anywhere.herokuapp.com/' + post.data[0].url}
-            alt={post.caption}
-            roundedTop="lg"
-            crossOrigin='anonymous'
-            loading='eager'
-            boxSize='400'
-            objectFit='cover'
-          />
-        </Link>
+        {
+          post.isCarousel ? (
+            <SimpleImageSlider
+              width={349}
+              height={400}
+              images={constructImages(post.data)}
+              showBullets={true}
+              showNavs={true}
+              style={{ margin: 'auto', maxWidth:'350' }}
+            />
+          ) : (
+            <Link href={'https://' + post.url} isExternal>
+              <Image
+                src={imageURL + post.data[0].url}
+                alt={post.caption}
+                roundedTop="lg"
+                crossOrigin='anonymous'
+                loading='eager'
+                boxSize='400'
+                objectFit='cover'
+              />
+            </Link>
+          )
+        }
   
         <Box p="6">
           <Flex alignItems='center' gap='2'>
