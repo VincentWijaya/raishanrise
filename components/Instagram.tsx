@@ -12,13 +12,14 @@ import {
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { FaHeart, FaCommentAlt } from 'react-icons/fa'
-import SimpleImageSlider from "react-simple-image-slider"
+import { FaHeart, FaCommentAlt, FaExternalLinkAlt } from 'react-icons/fa'
+import { Carousel } from "react-responsive-carousel"
+import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 export default function Instagram() {
   const [posts, setPost] = useState(null)
   const color = useColorModeValue('white', 'gray.800')
-  const imageURL = process.env.NEXT_PUBLIC_IS_DEV ? 'https://cors-anywhere.herokuapp.com/' : ''
+  const imageURL = 'https://test-service-anywhere.herokuapp.com/'
 
   useEffect(() => {
     axios.get('/api/instagram')
@@ -26,15 +27,6 @@ export default function Instagram() {
         setPost(res.data)
       })
   }, [])
-
-  const constructImages = (images) => {
-
-    const data = images.map((image) => {
-      return {url: imageURL + image.url}
-    })
-
-    return data
-  }
   
   const photoCard = (post) => {
     return (
@@ -46,7 +38,6 @@ export default function Instagram() {
         shadow="lg"
         position="relative"
         key={post.url}
-        marginLeft='5vh'
         transitionProperty='shadow'
         transitionDuration='1'
         transitionTimingFunction='ease-in-out'
@@ -57,14 +48,21 @@ export default function Instagram() {
   
         {
           post.isCarousel ? (
-            <SimpleImageSlider
-              width={349}
-              height={400}
-              images={constructImages(post.data)}
-              showBullets={true}
-              showNavs={true}
-              style={{ margin: 'auto', maxWidth:'350' }}
-            />
+            <Carousel infiniteLoop>
+              {post.data.map((slide) => {
+                return (
+                <Link href={'https://' + post.url} isExternal>
+                 <Image
+                    src={imageURL + slide.url}
+                    roundedTop="lg"
+                    crossOrigin='anonymous'
+                    loading='eager'
+                    boxSize='400'
+                    objectFit='cover'
+                  />
+                </Link>)
+              })}
+            </Carousel>
           ) : (
             <Link href={'https://' + post.url} isExternal>
               <Image
@@ -86,6 +84,7 @@ export default function Instagram() {
             <HStack gap='2'>
               <Text><Icon as={FaHeart} h={3}/> {post.like}</Text>
               <Text><Icon as={FaCommentAlt} h={3}/> {post.comment}</Text>
+              <Link href={'https://' + post.url} isExternal><Icon as={FaExternalLinkAlt} h={3} /></Link>
             </HStack>
           </Flex>
 
