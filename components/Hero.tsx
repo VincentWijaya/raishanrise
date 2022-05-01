@@ -131,10 +131,11 @@ export default function CallToActionWithVideo() {
             </Text>
           </Heading>
           <Text color={'gray.500'}>
-            Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. 
-            Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. 
-            Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. 
-            Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. Lorem ipsum sir amet. 
+          Sesosok gadis bernama Raisha Syifa Wardhana yang memiliki nama panggilan Raisha, lahir pada 11 November 2007.
+          Raisha Syifa sempat diumumkan menjadi member JKT48 generasi 10 pada tanggal 27 Agustus 2020, namun sayang karena efek pandemi, 
+          pengumuman member generasi 10 ditunda hingga bulan Desember 2021. Setelah beberapa bulan menjalani trainee di JKT48, 
+          akhirnya pada 26 Maret 2022, Raisha berkesempatan untuk melakukan shonichi di setlist Seishun girls. Raisha Memiliki hobi bermain 
+          bulutangkis dan basket. Walaupun masih berusia 15 tahun, namun Raisha merupakan member tertinggi di generasinya.
           </Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}
