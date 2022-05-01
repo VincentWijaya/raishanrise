@@ -48,10 +48,10 @@ export default function Instagram() {
   
         {
           post.isCarousel ? (
-            <Carousel infiniteLoop>
-              {post.data.map((slide) => {
+            <Carousel showArrows={true} emulateTouch={true} showThumbs={false} swipeable={true} showIndicators={false}>
+              {post.data.map((slide, index) => {
                 return (
-                <Link href={'https://' + post.url} isExternal>
+                <Link href={'https://' + post.url} isExternal key={index}>
                  <Image
                     src={imageURL + slide.url}
                     roundedTop="lg"
