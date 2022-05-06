@@ -3,7 +3,6 @@ import {
   Text,
   Container,
   Stack,
-  Heading,
   Avatar
 } from "@chakra-ui/react"
 import NavBar from './NavBar'
