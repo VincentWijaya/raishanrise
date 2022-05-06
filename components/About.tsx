@@ -7,22 +7,8 @@ import {
 } from "@chakra-ui/react"
 import NavBar from './NavBar'
 import Footer from './Footer'
-// import { useEffect, useState } from "react"
 
 export default function Layout() {
-    // const [scrollY, setScrollY] = useState(0)
-
-    // useEffect(() => {
-    //   const handleScroll = (e) => {
-    //     setScrollY(window.scrollY)
-    //   }
-
-    //   window.addEventListener("scroll", e => handleScroll(e))
-    //   return () => {
-    //     window.removeEventListener("scroll", e => handleScroll(e))
-    //   }
-    // }, [])
-
     return (
         <>
             <Box h='calc(100vh)'>
@@ -40,7 +26,7 @@ export default function Layout() {
                         size={'3xl'}
                         src='/images/raishanrise.jpeg'
                         css={{
-                          border: '2px solid white',
+                          border: '2px solid grey',
                         }}
                       />
 
