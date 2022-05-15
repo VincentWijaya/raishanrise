@@ -7,11 +7,14 @@ import {
 } from "@chakra-ui/react"
 import NavBar from './NavBar'
 import Footer from './Footer'
+import SEO from './SEO'
 
 export default function Layout() {
+    const desc = 'Raishanrise, merupakan Fanbase utama dari member generasi 10, Raisha Syifa Wardhana. Raishanrise sendiri diambil dari 2 kata yaitu Raisha n Rise, yang memiliki arti Raisha berkembang, atau bisa diartikan juga terbitnya Raisha, Raishanrise memiliki cita-cita untuk mendukung dalam semua harapan Raisha di JKT48 maupun diluar dari itu'
     return (
         <>
             <Box h='calc(100vh)'>
+                <SEO description={ desc } image='https://raishanrise.my.id//images/raishanrise.jpeg' title='About - Raishanrise'/>
                 <NavBar />
 
                 <Container maxW={'7xl'} pt='10vh' height={'100%'}>
@@ -30,11 +33,7 @@ export default function Layout() {
                         }}
                       />
 
-                      <Text color={'gray.500'} align='center'>
-                      Raishanrise, merupakan Fanbase utama dari member generasi 10, Raisha Syifa Wardhana. Raishanrise sendiri diambil dari 2 kata yaitu Raisha n Rise, 
-                      yang memiliki arti Raisha berkembang, atau bisa diartikan juga terbitnya Raisha, Raishanrise memiliki cita-cita untuk mendukung dalam semua harapan 
-                      Raisha di JKT48 maupun diluar dari itu. 
-                      </Text>
+                      <Text color={'gray.500'} align='center'>{ desc }</Text>
                   </Stack>
                 </Container>
 

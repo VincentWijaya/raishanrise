@@ -1,7 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { ColorModeProvider } from "@chakra-ui/react"
 import Head from 'next/head'
-import SEO from '../components/SEO'
 
 const poorMe = () => {
   console.log('%c Made with ❤️ by :', 'font-size: 20px')
@@ -18,7 +17,6 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
       </Head>
-      <SEO />
       <ColorModeProvider options={{ initialColorMode: 'light', useSystemColorMode: true }} />
       <Component {...pageProps} />
       { poorMe() }

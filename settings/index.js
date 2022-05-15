@@ -1,11 +1,11 @@
 const settings = {
   meta: {
-    rootUrl: "https://raishanrise.vercel.app/",
-    title: "Raishanrise",
-    description: "Official Raisha Syifa fanbase website",
+    rootUrl: "https://raishanrise.my.id/",
+    title: "Raisha Syifa Wardhana - Raishanrise Official Website",
+    description: "Official Raisha Syifa Wardhana JKT48 fanbase website",
     social: {
       graphic:
-        "https://raishanrise.vercel.app/images/raishanrise.jpeg",
+        "https://raishanrise.my.id/images/raishanrise.jpeg",
       twitter: "@kuli_coding",
     },
   }
