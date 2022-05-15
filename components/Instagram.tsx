@@ -61,6 +61,7 @@ export default function Instagram() {
                   loading='lazy'
                   boxSize='400'
                   objectFit='cover'
+                  alt={post.caption}
                 />
               </Link>)
             })}
