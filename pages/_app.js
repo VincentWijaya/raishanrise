@@ -9,6 +9,11 @@ const poorMe = () => {
 }
 
 function MyApp({ Component, pageProps }) {
+  let d = new Date()
+  d = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
+  const h = d.toISOString().slice(12, 13)
+  const initColorMode = h >= 18 || h <= 7 ? 'dark' : 'light'
+
   return (
     <ChakraProvider>
       <Head>
@@ -17,7 +22,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
       </Head>
-      <ColorModeProvider options={{ initialColorMode: 'light', useSystemColorMode: true }} />
+      <ColorModeProvider options={{ initialColorMode: `${initColorMode}`, useSystemColorMode: true }} />
       <Component {...pageProps} />
       { poorMe() }
     </ChakraProvider>
