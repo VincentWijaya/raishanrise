@@ -17,6 +17,7 @@ import { useState } from "react"
 import NavBar from './NavBar'
 import Footer from './Footer'
 import SEO from './SEO'
+import Swal from "sweetalert2"
 
 export default function Layout() {
     const [fullname, setFullname] = useState('')
@@ -24,7 +25,7 @@ export default function Layout() {
     const handleFullname = (event) => {
       // /^[a-zA-Z0-9_]*$/
       const value = event.target.value
-      const regex = /^([a-zA-Z ]){4,}$/
+      const regex = /^[a-zA-Z ]{4,}$/
       if (regex.test(value)) {
         setFullnameInvalid(false)
       } else {
@@ -37,7 +38,7 @@ export default function Layout() {
     const [nicknameInvalid, setNicknameInvalid] = useState(false)
     const handleNickname = (event) => {
       const value = event.target.value
-      const regex = /^([a-zA-Z_-]){4,}$/
+      const regex = /^[a-zA-Z_-]{4,}$/
       if (regex.test(value)) {
         setNicknameInvalid(false)
       } else {
@@ -50,7 +51,7 @@ export default function Layout() {
     const [twitterInvalid, setTwitterInvalid] = useState(false)
     const handleTwitter = (event) => {
       const value = event.target.value
-      const regex = /^([a-zA-Z0-9_]){4,}$/
+      const regex = /^[a-zA-Z0-9_]{4,}$/
       if (regex.test(value)) {
         setTwitterInvalid(false)
       } else {
@@ -63,7 +64,7 @@ export default function Layout() {
     const [lineIDInvalid, setLineIDInvalid] = useState(false)
     const handleLineID = (event) => {
       const value = event.target.value
-      const regex = /^([a-zA-Z0-9_-]){4,}$/
+      const regex = /^[a-zA-Z0-9_-]{4,}$/
       if (regex.test(value)) {
         setLineIDInvalid(false)
       } else {
@@ -76,7 +77,7 @@ export default function Layout() {
     const [regionalInvalid, setRegionalInvalid] = useState(false)
     const handleRegional = (event) => {
       const value = event.target.value
-      const regex = /^([a-zA-Z0-9_-]){4,}$/
+      const regex = /^[a-zA-Z ]{4,}$/
       if (regex.test(value)) {
         setRegionalInvalid(false)
       } else {
@@ -89,7 +90,7 @@ export default function Layout() {
     const [reasonInvalid, setReasonInvalid] = useState(false)
     const handleReason = (event) => {
       const value = event.target.value
-      const regex = /^([a-zA-Z0-9_-]){4,}$/
+      const regex = /^[a-zA-Z ,.]{10,}$/
       if (regex.test(value)) {
         setReasonInvalid(false)
       } else {
@@ -101,6 +102,26 @@ export default function Layout() {
     const [gender, setGender] = useState('')
     const [helping, setHelping] = useState('')
     const [kas, setKas] = useState('')
+
+    const [submitting, setSubmitting] = useState(false)
+    const handleSubmit = (event) => {
+      event.preventDefault()
+
+      setSubmitting(true)
+      if (fullnameInvalid || nicknameInvalid || regionalInvalid || twitterInvalid || lineIDInvalid || reasonInvalid || gender == '' || helping == '' || kas == '') {
+        Swal.fire(
+          'Validation Error',
+          'Pastikan semua input sudah benar',
+          'warning'
+        )
+        setSubmitting(false)
+        return
+      }
+
+      
+
+      setSubmitting(false)
+    }
 
     return (
         <>
@@ -147,6 +168,7 @@ export default function Layout() {
                       value={fullname}
                       isInvalid={fullnameInvalid}
                       onChange={handleFullname}
+                      onClick={handleFullname}
                       errorBorderColor='crimson'
                       isRequired
                     />
@@ -161,6 +183,7 @@ export default function Layout() {
                       value={nickname}
                       isInvalid={nicknameInvalid}
                       onChange={handleNickname}
+                      onClick={handleNickname}
                       errorBorderColor='crimson'
                       isRequired
                     />
@@ -175,6 +198,7 @@ export default function Layout() {
                       value={regional}
                       isInvalid={regionalInvalid}
                       onChange={handleRegional}
+                      onClick={handleRegional}
                       errorBorderColor='crimson'
                       isRequired
                     />
@@ -191,6 +215,7 @@ export default function Layout() {
                         value={twitter}
                         isInvalid={twitterInvalid}
                         onChange={handleTwitter}
+                        onClick={handleTwitter}
                         errorBorderColor='crimson'
                         isRequired
                       />
@@ -206,6 +231,7 @@ export default function Layout() {
                       value={lineID}
                       isInvalid={lineIDInvalid}
                       onChange={handleLineID}
+                      onClick={handleLineID}
                       errorBorderColor='crimson'
                       isRequired
                     />
@@ -221,6 +247,7 @@ export default function Layout() {
                       value={reason}
                       isInvalid={reasonInvalid}
                       onChange={handleReason}
+                      onClick={handleReason}
                       errorBorderColor='crimson'
                       isRequired
                     />
@@ -256,7 +283,13 @@ export default function Layout() {
                       _hover={{
                         bgGradient: 'linear(to-r, blue.400,purple.400)',
                         boxShadow: 'xl',
-                      }}>
+                      }}
+                      onClick={handleSubmit}
+                      isLoading={submitting}
+                      loadingText='Submitting'
+                      colorScheme='teal'
+                      variant='outline'
+                      >
                       Submit
                     </Button>
                   </Stack>
