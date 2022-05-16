@@ -103,6 +103,18 @@ export default function Layout() {
     const [helping, setHelping] = useState('')
     const [kas, setKas] = useState('')
 
+    const clearData = () => {
+      setFullname('')
+      setNickname('')
+      setTwitter('')
+      setLineID('')
+      setRegional('')
+      setReason('')
+      setGender('')
+      setHelping('')
+      setKas('')
+    }
+
     const [submitting, setSubmitting] = useState(false)
     const handleSubmit = (event) => {
       event.preventDefault()
@@ -118,9 +130,35 @@ export default function Layout() {
         return
       }
 
-      
+      const registerData = {
+        fullname: fullname,
+        nickname: nickname,
+        twitter: twitter,
+        line: lineID,
+        regional: regional,
+        reason: reason,
+        gender: gender,
+        helping: helping,
+        kas: kas
+      }
+      axios.post('/api/register', registerData)
+        .then((resp) => {
+          Swal.fire(
+            'Registration Success',
+            'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
+            'success'
+          )
+        })
+        .catch((err) =>{
+          Swal.fire(
+            'Failed to Register',
+            `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
+            'error'
+          )
+        })
 
       setSubmitting(false)
+      clearData()
     }
 
     return (
