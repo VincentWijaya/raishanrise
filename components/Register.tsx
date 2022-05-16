@@ -3,18 +3,17 @@ import {
   Text,
   Container,
   Stack,
-  Avatar
+  Heading
 } from "@chakra-ui/react"
 import NavBar from './NavBar'
 import Footer from './Footer'
 import SEO from './SEO'
 
 export default function Layout() {
-    const desc = 'Raishanrise, merupakan Fanbase utama dari member generasi 10, Raisha Syifa Wardhana. Raishanrise sendiri diambil dari 2 kata yaitu Raisha n Rise, yang memiliki arti Raisha berkembang, atau bisa diartikan juga terbitnya Raisha, Raishanrise memiliki cita-cita untuk mendukung dalam semua harapan Raisha di JKT48 maupun diluar dari itu'
     return (
         <>
             <Box h='calc(100vh)'>
-                <SEO description={ desc } image='https://raishanrise.my.id//images/raishanrise.jpeg' title='About - Raishanrise'/>
+                <SEO description='Join raisha syifa wardhana fanbase - raishanrise' image='https://raishanrise.my.id//images/raishanrise.jpeg' title='Join - Raishanrise Official Website'/>
                 <NavBar />
 
                 <Container maxW={'7xl'} pt='10vh' height={'100%'}>
@@ -23,17 +22,27 @@ export default function Layout() {
                     spacing={{ base: 8, md: 10 }}
                     py={{ base: 20, md: 28 }}
                     pb='30vh'
-                    direction={{ base: 'column', sm: 'row' }}
-                    >
-                      <Avatar
-                        size={'3xl'}
-                        src='/images/raishanrise.jpeg'
-                        css={{
-                          border: '2px solid grey',
-                        }}
-                      />
-
-                      <Text color={'gray.500'} align='center'>{ desc }</Text>
+                    direction={{ base: 'column', sm: 'column' }}
+                  >
+                    <Heading
+                      lineHeight={1.1}
+                      fontWeight={600}
+                      fontSize={{ base: '2xl', sm: '4xl', lg: '6xl' }}>
+                      <Text
+                        as={'span'}
+                        position={'inherit'}
+                        _after={{
+                          content: "''",
+                          width: 'full',
+                          height: '20%',
+                          position: 'absolute',
+                          bottom: 1,
+                          left: 0,
+                          zIndex: -1,
+                        }}>
+                        Join Us
+                      </Text>
+                    </Heading>
                   </Stack>
                 </Container>
 
