@@ -11,8 +11,8 @@ const poorMe = () => {
 function MyApp({ Component, pageProps }) {
   let d = new Date()
   d = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
-  const h = d.toISOString().slice(12, 13)
-  const initColorMode = h >= 18 || h <= 7 ? 'dark' : 'light'
+  const hh = d.toISOString().slice(11, 13)
+  const initColorMode = hh >= 18 || hh <= 7 ? 'dark' : 'light'
 
   return (
     <ChakraProvider>
