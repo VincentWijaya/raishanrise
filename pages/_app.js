@@ -1,7 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { ColorModeProvider } from "@chakra-ui/react"
 import Head from 'next/head'
-import SEO from '../components/SEO'
 
 const poorMe = () => {
   console.log('%c Made with ❤️ by :', 'font-size: 20px')
@@ -10,6 +9,11 @@ const poorMe = () => {
 }
 
 function MyApp({ Component, pageProps }) {
+  let d = new Date()
+  d = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
+  const hh = d.toISOString().slice(11, 13)
+  const initColorMode = hh >= 18 || hh <= 7 ? 'dark' : 'light'
+
   return (
     <ChakraProvider>
       <Head>
@@ -18,8 +22,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
       </Head>
-      <SEO />
-      <ColorModeProvider options={{ initialColorMode: 'light', useSystemColorMode: true }} />
+      <ColorModeProvider options={{ initialColorMode: `${initColorMode}`, useSystemColorMode: true }} />
       <Component {...pageProps} />
       { poorMe() }
     </ChakraProvider>
