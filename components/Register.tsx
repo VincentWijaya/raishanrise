@@ -316,16 +316,16 @@ export default function Layout() {
                       fontFamily={'heading'}
                       mt={8}
                       w={'full'}
-                      bgGradient="linear(to-r, blue.400,purple.400)"
+                      bgGradient="linear(to-r, blue.400,blue.500)"
                       color={'white'}
                       _hover={{
-                        bgGradient: 'linear(to-r, blue.400,purple.400)',
+                        bgGradient: 'linear(to-r, blue.400,blue.500)',
                         boxShadow: 'xl',
                       }}
                       onClick={handleSubmit}
                       isLoading={submitting}
                       loadingText='Submitting'
-                      colorScheme='teal'
+                      colorScheme='blue'
                       variant='outline'
                       >
                       Submit
