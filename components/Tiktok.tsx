@@ -41,15 +41,13 @@ export default function Instagram() {
         _hover={{
           shadow: '2xl'
         }}
+        width='320px'
       >
         <Box
           as='video'
           controls
           src={post.videoURL}
-          objectFit='fill'
-          sx={{
-            aspectRatio: '16/9'
-          }}
+          objectFit='cover'
           height='566px'
         />
 
