@@ -22,6 +22,7 @@ import axios from 'axios'
 
 import Twitter from './Twtiter'
 import Instagram from './Instagram'
+import Tiktok from './Tiktok'
 
 export default function CallToActionWithVideo() {
   const [ isPlaying, setPlay ] = useState(false)
@@ -241,9 +242,16 @@ export default function CallToActionWithVideo() {
 
       <Box
         pt='1vh'
-        pb='30vh'
+        pb='10vh'
       >
         <Instagram />
+      </Box>
+
+      <Box
+        pt='1vh'
+        pb='30vh'
+      >
+        <Tiktok />
       </Box>
     </Container>
   )

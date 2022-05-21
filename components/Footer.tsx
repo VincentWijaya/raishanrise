@@ -8,7 +8,7 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react';
-import { FaTwitter } from 'react-icons/fa'
+import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
 import { ReactNode } from 'react'
 
 const SocialButton = ({
@@ -66,6 +66,12 @@ export default function SmallCentered() {
         <Stack direction={'row'} spacing={6}>
           <SocialButton label={'Twitter'} href='https://twitter.com/RaishanriseOfc'>
             <FaTwitter />
+          </SocialButton>
+          <SocialButton label={'Instagram'} href='https://instagram.com/raishanrise.official'>
+            <FaInstagram />
+          </SocialButton>
+          <SocialButton label={'Tiktok'} href='https://tiktok.com/@raishanrise_ofc'>
+            <FaTiktok />
           </SocialButton>
         </Stack>
       </Container>
