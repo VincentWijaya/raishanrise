@@ -46,9 +46,10 @@ export default function Instagram() {
         <Box
           as='video'
           controls
-          src={post.videoURL}
+          src={post.videoURL+'#t=0.1'}
           objectFit='cover'
           height='566px'
+          preload='metadata'
         />
 
         <Box p='6'>
