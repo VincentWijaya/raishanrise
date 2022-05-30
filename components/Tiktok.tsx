@@ -73,7 +73,7 @@ export default function Instagram() {
         fontSize={{ base: 'xl', sm: '2xl', lg: '4xl' }}
       >Tiktok Feed</Text>
 
-      <SimpleGrid columns={[1,2,3]} spacing='10' pt='2vh'>
+      <SimpleGrid columns={[1,2,3]} spacing='10' pt='2vh' px='5'>
         {
           posts.length > 0 && posts.map(post => videoCard(post))
         }
