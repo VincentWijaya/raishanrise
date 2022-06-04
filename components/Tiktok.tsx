@@ -47,7 +47,7 @@ export default function Instagram() {
           as='video'
           controls
           src={post.videoURL+'#t=0.1'}
-          objectFit='cover'
+          objectFit='-moz-initial'
           height='566px'
           preload='metadata'
         />
