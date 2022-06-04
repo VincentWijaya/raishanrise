@@ -1,17 +1,12 @@
-import { collection, onSnapshot } from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../service/firebase'
 
 export default async (req, res) => {
   switch (req.method) {
     case 'GET': {
       try {
-        onSnapshot(collection(db, 'tiktok'), snapshot => {
-          snapshot.docs.map(doc => {
-            const obj = doc.data()
-            let arr = Object.keys(obj).map((k) => obj[k])
-            res.send(arr)
-          })
-        })
+        const result = await getDoc(doc(db, 'tiktok', 'tiktok'))
+        res.send(Object.keys(result.data()).map((key) => [Number(key), result.data()[key]]))
       } catch (err) {
         console.log('Failed get tiktok to firestore', err)
         res.status(400).end()
