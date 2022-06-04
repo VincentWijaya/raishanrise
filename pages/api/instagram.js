@@ -6,7 +6,8 @@ export default async (req, res) => {
     case 'GET': {
       try {
         const result = await getDoc(doc(db, 'instagram', 'instagram'))
-        res.send(Object.keys(result.data()).map((key) => [Number(key), result.data()[key]]))
+        let arr = Object.keys(result.data()).map((k) => result.data()[k])
+        res.send(arr)
       } catch (err) {
         console.log('Failed get instagram to firestore', err)
         res.status(400).end()
