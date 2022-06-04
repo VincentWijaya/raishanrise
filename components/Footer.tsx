@@ -35,7 +35,8 @@ const SocialButton = ({
       transition={'background 0.3s ease'}
       _hover={{
         bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
-      }}>
+      }}
+      target='_blank'>
       <VisuallyHidden>{label}</VisuallyHidden>
       {children}
     </chakra.button>
