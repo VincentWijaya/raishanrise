@@ -14,7 +14,7 @@ import { FaExternalLinkAlt, FaEye } from 'react-icons/fa'
 import axios from 'axios'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
-export default function Instagram() {
+export default function Tiktok() {
   const [posts, setPost] = useState([])
   const color = useColorModeValue('white', 'gray.800')
 
@@ -34,7 +34,7 @@ export default function Instagram() {
         rounded="lg"
         shadow="lg"
         position="relative"
-        key={post.url}
+        key={post.views}
         transitionProperty='shadow'
         transitionDuration='1'
         transitionTimingFunction='ease-in-out'
