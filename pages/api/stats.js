@@ -1,4 +1,4 @@
-import { collection, onSnapshot } from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../service/firebase'
 
 export default async (req, res) => {
@@ -10,16 +10,13 @@ export default async (req, res) => {
           setlist: '0 Setlist',
           unitSong: '0 Unit Song'
         }
-        onSnapshot(collection(db, 'stats'), snapshot => {
-          snapshot.docs.map(doc => {
-            data = {
-              unitSong: doc.data().unitSong,
-              show: doc.data().show,
-              setlist: doc.data().setlist
-            }
-            res.status(200).json(data)
-          })
-        })
+        const result = await getDoc(doc(db, 'stats', 'stats'))
+        data = {
+          unitSong: result.data().unitSong,
+          show: result.data().show,
+          setlist: result.data().setlist
+        }
+        res.send(data)
       } catch (err) {
         console.log('Failed get stats to firestore', err)
         res.status(400).end()
