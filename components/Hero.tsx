@@ -144,7 +144,7 @@ export default function CallToActionWithVideo() {
             align='center'
           >
 
-            <a target='_blank' href='https://twitter.com/SW_RaishaJKT48'>
+            <a target='_blank' href='https://twitter.com/SW_RaishaJKT48' rel='noreferrer'>
               <Button
                 rounded={'full'}
                 size={'lg'}
@@ -159,7 +159,7 @@ export default function CallToActionWithVideo() {
               </Button>
             </a>
 
-            <a target='_blank' href='https://instagram.com/jkt48.raisha.s'>
+            <a target='_blank' href='https://instagram.com/jkt48.raisha.s' rel='noreferrer'>
               <Button
                 rounded={'full'}
                 size={'lg'}
@@ -174,7 +174,7 @@ export default function CallToActionWithVideo() {
               </Button>
             </a>
 
-            <a target='_blank' href='https://tiktok.com/@jkt48.raisha.s'>
+            <a target='_blank' href='https://tiktok.com/@jkt48.raisha.s' rel='noreferrer'>
               <Button
                 rounded={'full'}
                 size={'lg'}
