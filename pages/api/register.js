@@ -4,9 +4,7 @@ import querystring from 'querystring'
 export default async (req, res) => {
   switch (req.method) {
     case 'POST': {
-      try {
-        res.send({message: 'Success'})
-        
+      try {        
         const {
           fullname,
           nickname,
@@ -25,9 +23,10 @@ export default async (req, res) => {
         axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, querystring.stringify(telegramData))
           .then(resp => {
             console.log('success send message')
+            res.send({message: 'Success'})
           })
           .catch(err => {
-            console.log('failed send message', err)
+            console.log('failed send message', err.message)
           })
       } catch (err) {
         console.log('Failed to send message to telegram', err)
