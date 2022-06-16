@@ -62,6 +62,17 @@ export default function Tiktok() {
               </Link>
             </HStack>
           </Flex>
+
+          <Flex mt="1" justifyContent="space-between" alignContent="center">
+            <Box
+              fontSize="md"
+              fontWeight="semibold"
+              as="h4"
+              lineHeight="tight"
+            >
+              {post.caption}
+            </Box>
+          </Flex>
         </Box>
       </Box>
     )
