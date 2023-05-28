@@ -3,7 +3,7 @@
 This project is Raisha Syifa official fanbase website.
 
 ## Requeirement
-1. NodeJS v14
+1. NodeJS v18
 2. Yarn
 
 ## How to run

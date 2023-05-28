@@ -64,7 +64,7 @@ export default function Layout() {
     const [lineIDInvalid, setLineIDInvalid] = useState(false)
     const handleLineID = (event) => {
       const value = event.target.value
-      const regex = /^[a-zA-Z0-9_-.]{4,}$/
+      const regex = /^[a-zA-Z0-9_.-g]{4,}$/
       if (regex.test(value)) {
         setLineIDInvalid(false)
       } else {
