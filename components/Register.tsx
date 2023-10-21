@@ -12,7 +12,7 @@ import {
   RadioGroup
 } from "@chakra-ui/react"
 import axios from 'axios'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import NavBar from './NavBar'
 import Footer from './Footer'
@@ -161,177 +161,197 @@ export default function Layout() {
       clearData()
     }
 
+    const JOIN_FORM_WORDING = process.env.NEXT_PUBLIC_JOIN_FORM_WORDING
+
     return (
         <>
             <Box h='calc(100vh)'>
                 <SEO description='Join raisha syifa wardhana fanbase - raishanrise' image='https://raishanrise.my.id//images/raishanrise.jpeg' title='Join - Raishanrise Official Website'/>
                 <NavBar />
 
-                <Container as={'form'} maxW={'2xl'} pt='10vh' height={'100%'}>
-                  <Stack
-                    align={'center'}
-                    spacing={{ base: 4, md: 6 }}
-                    py={{ base: 20, md: 28 }}
-                    pb='30vh'
-                    direction={{ base: 'column', sm: 'column' }}
-                  >
-                    <Heading
-                      lineHeight={1.1}
-                      fontWeight={600}
-                      fontSize={{ base: '2xl', sm: '4xl', lg: '6xl' }}>
-                      <Text
-                        as={'span'}
-                        position={'inherit'}
-                        _after={{
-                          content: "''",
-                          width: 'full',
-                          height: '20%',
-                          position: 'absolute',
-                          bottom: 1,
-                          left: 0,
-                          zIndex: -1,
-                        }}>
-                        Join Us
-                      </Text>
-                    </Heading>
-                
-                    <Input
-                      placeholder="Nama Lengkap"
-                      bg={'gray.100'}
-                      border={0}
-                      color={'gray.500'}
-                      _placeholder={{
-                        color: 'gray.500',
-                      }}
-                      value={fullname}
-                      isInvalid={fullnameInvalid}
-                      onChange={handleFullname}
-                      onClick={handleFullname}
-                      errorBorderColor='crimson'
-                      isRequired
-                    />
-                    <Input
-                      placeholder="Nama Panggilan"
-                      bg={'gray.100'}
-                      border={0}
-                      color={'gray.500'}
-                      _placeholder={{
-                        color: 'gray.500',
-                      }}
-                      value={nickname}
-                      isInvalid={nicknameInvalid}
-                      onChange={handleNickname}
-                      onClick={handleNickname}
-                      errorBorderColor='crimson'
-                      isRequired
-                    />
-                    <Input
-                      placeholder="Regional"
-                      bg={'gray.100'}
-                      border={0}
-                      color={'gray.500'}
-                      _placeholder={{
-                        color: 'gray.500',
-                      }}
-                      value={regional}
-                      isInvalid={regionalInvalid}
-                      onChange={handleRegional}
-                      onClick={handleRegional}
-                      errorBorderColor='crimson'
-                      isRequired
-                    />
-                    <InputGroup>
-                      <InputLeftAddon children='@' />
-                      <Input
-                        placeholder="Username Twitter"
-                        bg={'gray.100'}
-                        border={0}
-                        color={'gray.500'}
-                        _placeholder={{
-                          color: 'gray.500',
-                        }}
-                        value={twitter}
-                        isInvalid={twitterInvalid}
-                        onChange={handleTwitter}
-                        onClick={handleTwitter}
-                        errorBorderColor='crimson'
-                        isRequired
-                      />
-                    </InputGroup>
-                    <Input
-                      placeholder="ID Line"
-                      bg={'gray.100'}
-                      border={0}
-                      color={'gray.500'}
-                      _placeholder={{
-                        color: 'gray.500',
-                      }}
-                      value={lineID}
-                      isInvalid={lineIDInvalid}
-                      onChange={handleLineID}
-                      onClick={handleLineID}
-                      errorBorderColor='crimson'
-                      isRequired
-                    />
-                    <Input
-                      placeholder="Alasan join Raishanrise"
-                      bg={'gray.100'}
-                      border={0}
-                      color={'gray.500'}
-                      _placeholder={{
-                        color: 'gray.500',
-                      }}
-                      height={20}
-                      value={reason}
-                      isInvalid={reasonInvalid}
-                      onChange={handleReason}
-                      onClick={handleReason}
-                      errorBorderColor='crimson'
-                      isRequired
-                    />
-
-                    <Text>Jenis Kelamin :</Text>
-                    <RadioGroup onChange={setGender} value={gender}>
-                      <Stack direction='row'>
-                        <Radio value='Male'>Male</Radio>
-                        <Radio value='Female'>Female</Radio>
-                      </Stack>
-                    </RadioGroup>
-                    <Text>Bersedia untuk membantu project Raishanrise ?</Text>
-                    <RadioGroup onChange={setHelping} value={helping}>
-                      <Stack direction='row'>
-                        <Radio value='Ya'>Ya</Radio>
-                        <Radio value='Tidak'>Tidak</Radio>
-                      </Stack>
-                    </RadioGroup>
-                    <Text>Bersedia untung membayar uang kas ?</Text>
-                    <RadioGroup onChange={setKas} value={kas}>
-                      <Stack direction='row'>
-                        <Radio value='Ya'>Ya</Radio>
-                        <Radio value='Tidak'>Tidak</Radio>
-                      </Stack>
-                    </RadioGroup>
-
-                    <Button
-                      fontFamily={'heading'}
-                      mt={8}
-                      w={'full'}
-                      bgGradient="linear(to-r, blue.400,blue.500)"
-                      color={'white'}
-                      _hover={{
-                        bgGradient: 'linear(to-r, blue.400,blue.500)',
-                        boxShadow: 'xl',
-                      }}
-                      onClick={handleSubmit}
-                      isLoading={submitting}
-                      loadingText='Submitting'
-                      colorScheme='blue'
-                      variant='outline'
+                {
+                  JOIN_FORM_WORDING ? (
+                    <Container as={'form'} maxW={'2xl'} pt='10vh' height={'100%'}>
+                      <Stack
+                        align={'center'}
+                        spacing={{ base: 4, md: 6 }}
+                        py={{ base: 20, md: 28 }}
+                        pb='30vh'
+                        direction={{ base: 'column', sm: 'column' }}
                       >
-                      Submit
-                    </Button>
-                  </Stack>
-                </Container>
+                        <Text textAlign="center">
+                          {JOIN_FORM_WORDING}
+                        </Text>
+                      </Stack>
+                    </Container>
+                  ) : (
+                    <Container as={'form'} maxW={'2xl'} pt='10vh' height={'100%'}>
+                      <Stack
+                        align={'center'}
+                        spacing={{ base: 4, md: 6 }}
+                        py={{ base: 20, md: 28 }}
+                        pb='30vh'
+                        direction={{ base: 'column', sm: 'column' }}
+                      >
+                        <Heading
+                          lineHeight={1.1}
+                          fontWeight={600}
+                          fontSize={{ base: '2xl', sm: '4xl', lg: '6xl' }}>
+                          <Text
+                            as={'span'}
+                            position={'inherit'}
+                            _after={{
+                              content: "''",
+                              width: 'full',
+                              height: '20%',
+                              position: 'absolute',
+                              bottom: 1,
+                              left: 0,
+                              zIndex: -1,
+                            }}>
+                            Join Us
+                          </Text>
+                        </Heading>
+                    
+                        <Input
+                          placeholder="Nama Lengkap"
+                          bg={'gray.100'}
+                          border={0}
+                          color={'gray.500'}
+                          _placeholder={{
+                            color: 'gray.500',
+                          }}
+                          value={fullname}
+                          isInvalid={fullnameInvalid}
+                          onChange={handleFullname}
+                          onClick={handleFullname}
+                          errorBorderColor='crimson'
+                          isRequired
+                        />
+                        <Input
+                          placeholder="Nama Panggilan"
+                          bg={'gray.100'}
+                          border={0}
+                          color={'gray.500'}
+                          _placeholder={{
+                            color: 'gray.500',
+                          }}
+                          value={nickname}
+                          isInvalid={nicknameInvalid}
+                          onChange={handleNickname}
+                          onClick={handleNickname}
+                          errorBorderColor='crimson'
+                          isRequired
+                        />
+                        <Input
+                          placeholder="Regional"
+                          bg={'gray.100'}
+                          border={0}
+                          color={'gray.500'}
+                          _placeholder={{
+                            color: 'gray.500',
+                          }}
+                          value={regional}
+                          isInvalid={regionalInvalid}
+                          onChange={handleRegional}
+                          onClick={handleRegional}
+                          errorBorderColor='crimson'
+                          isRequired
+                        />
+                        <InputGroup>
+                          <InputLeftAddon children='@' />
+                          <Input
+                            placeholder="Username Twitter"
+                            bg={'gray.100'}
+                            border={0}
+                            color={'gray.500'}
+                            _placeholder={{
+                              color: 'gray.500',
+                            }}
+                            value={twitter}
+                            isInvalid={twitterInvalid}
+                            onChange={handleTwitter}
+                            onClick={handleTwitter}
+                            errorBorderColor='crimson'
+                            isRequired
+                          />
+                        </InputGroup>
+                        <Input
+                          placeholder="ID Line"
+                          bg={'gray.100'}
+                          border={0}
+                          color={'gray.500'}
+                          _placeholder={{
+                            color: 'gray.500',
+                          }}
+                          value={lineID}
+                          isInvalid={lineIDInvalid}
+                          onChange={handleLineID}
+                          onClick={handleLineID}
+                          errorBorderColor='crimson'
+                          isRequired
+                        />
+                        <Input
+                          placeholder="Alasan join Raishanrise"
+                          bg={'gray.100'}
+                          border={0}
+                          color={'gray.500'}
+                          _placeholder={{
+                            color: 'gray.500',
+                          }}
+                          height={20}
+                          value={reason}
+                          isInvalid={reasonInvalid}
+                          onChange={handleReason}
+                          onClick={handleReason}
+                          errorBorderColor='crimson'
+                          isRequired
+                        />
+    
+                        <Text>Jenis Kelamin :</Text>
+                        <RadioGroup onChange={setGender} value={gender}>
+                          <Stack direction='row'>
+                            <Radio value='Male'>Male</Radio>
+                            <Radio value='Female'>Female</Radio>
+                          </Stack>
+                        </RadioGroup>
+                        <Text>Bersedia untuk membantu project Raishanrise ?</Text>
+                        <RadioGroup onChange={setHelping} value={helping}>
+                          <Stack direction='row'>
+                            <Radio value='Ya'>Ya</Radio>
+                            <Radio value='Tidak'>Tidak</Radio>
+                          </Stack>
+                        </RadioGroup>
+                        <Text>Bersedia untung membayar uang kas ?</Text>
+                        <RadioGroup onChange={setKas} value={kas}>
+                          <Stack direction='row'>
+                            <Radio value='Ya'>Ya</Radio>
+                            <Radio value='Tidak'>Tidak</Radio>
+                          </Stack>
+                        </RadioGroup>
+    
+                        <Button
+                          fontFamily={'heading'}
+                          mt={8}
+                          w={'full'}
+                          bgGradient="linear(to-r, blue.400,blue.500)"
+                          color={'white'}
+                          _hover={{
+                            bgGradient: 'linear(to-r, blue.400,blue.500)',
+                            boxShadow: 'xl',
+                          }}
+                          onClick={handleSubmit}
+                          isLoading={submitting}
+                          loadingText='Submitting'
+                          colorScheme='blue'
+                          variant='outline'
+                          >
+                          Submit
+                        </Button>
+                      </Stack>
+                    </Container>
+                  )
+                }
 
                 <Footer />
             </Box>
