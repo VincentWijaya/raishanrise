@@ -17,6 +17,8 @@ import { useState } from "react"
 import NavBar from './NavBar'
 import Footer from './Footer'
 import SEO from './SEO'
+
+import axios from 'axios'
 import Swal from "sweetalert2"
 
 export default function Layout() {
@@ -224,26 +226,28 @@ export default function Layout() {
         reason: reason,
         gender: gender,
         helping: helping,
-        kas: kas
+        kas: kas,
+        buktiTransfer: ''
       }
 
       handleUpload()
         .then(() => {
-          // axios.post('/api/register', registerData)
-          // .then((resp) => {
-          //   Swal.fire(
-          //     'Registration Success',
-          //     'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
-          //     'success'
-          //   )
-          // })
-          // .catch((err) =>{
-          //   Swal.fire(
-          //     'Failed to Register',
-          //     `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
-          //     'error'
-          //   )
-          // })
+          registerData.buktiTransfer = url
+          axios.post('/api/register', registerData)
+          .then(() => {
+            Swal.fire(
+              'Registration Success',
+              'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
+              'success'
+            )
+          })
+          .catch(() =>{
+            Swal.fire(
+              'Failed to Register',
+              `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
+              'error'
+            )
+          })
         })
         .catch((err) => {
           console.log(err)
