@@ -1,13 +1,12 @@
 import { ref, uploadString, getDownloadURL, getStorage } from 'firebase/storage'
-import { getApp } from 'firebase/app'
+import { app } from '../../service/firebase'
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      const firebaseApp = getApp()
       const { name, data, contentType } = req.body
 
-      const storageRef = getStorage(firebaseApp, `gs://${process.env.FIREBASE_STORAGE_BUCKET}`)
+      const storageRef = getStorage(app, `gs://${process.env.FIREBASE_STORAGE_BUCKET}`)
       const fileRef = ref(storageRef, `/bukti-transfer/${name}`)
 
       await uploadString(fileRef, data.split(',')[1], 'base64', { contentType: contentType })

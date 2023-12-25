@@ -233,26 +233,26 @@ export default function Layout() {
         .then((resp) => {
           setTimeout(() => {
             registerData.buktiTransfer = url
-          }, 300)
-          axios.post('/api/register', registerData)
-          .then(() => {
-            Swal.fire(
-              'Registration Success',
-              'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
-              'success'
-            )
-            setSubmitting(false)
-            clearData()
-          })
-          .catch(() =>{
-            Swal.fire(
-              'Failed to Register',
-              `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
-              'error'
-            )
-            setSubmitting(false)
-            clearData()
-          })
+            axios.post('/api/register', registerData)
+            .then(() => {
+              Swal.fire(
+                'Registration Success',
+                'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
+                'success'
+              )
+              setSubmitting(false)
+              clearData()
+            })
+            .catch(() =>{
+              Swal.fire(
+                'Failed to Register',
+                `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
+                'error'
+              )
+              setSubmitting(false)
+              clearData()
+            })
+          }, 1500)
         })
         .catch((err) => {
           console.log(err)
