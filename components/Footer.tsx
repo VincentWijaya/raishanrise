@@ -8,7 +8,7 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react';
-import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
+import { FaTwitter, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa'
 import { ReactNode } from 'react'
 
 const SocialButton = ({
@@ -70,11 +70,14 @@ export default function SmallCentered() {
           <SocialButton label={'Twitter'} href='https://twitter.com/RaishanriseOfc'>
             <FaTwitter />
           </SocialButton>
-          <SocialButton label={'Instagram'} href='https://instagram.com/raishanrise.official'>
+          <SocialButton label={'Instagram'} href='https://instagram.com/RaishanriseOfc'>
             <FaInstagram />
           </SocialButton>
-          <SocialButton label={'Tiktok'} href='https://tiktok.com/@raishanrise_ofc'>
+          <SocialButton label={'Tiktok'} href='https://tiktok.com/@RaishanriseOfc'>
             <FaTiktok />
+          </SocialButton>
+          <SocialButton label={'Youtube'} href='https://www.youtube.com/@RaishanriseOfc'>
+            <FaYoutube />
           </SocialButton>
         </Stack>
       </Container>
