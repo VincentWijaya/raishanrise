@@ -12,7 +12,6 @@ import {
   RadioGroup,
   Tooltip
 } from "@chakra-ui/react"
-import axios from 'axios'
 import { useState } from "react"
 
 import NavBar from './NavBar'
@@ -121,11 +120,11 @@ export default function Layout() {
         return
       }
   
-      const validImageTypes = ['image/jpeg', 'image/png']
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg']
       if (!validImageTypes.includes(selectedFile.type)) {
         Swal.fire(
           'Validation Error',
-          'Pastikan format file yang dipilih JPEG/PNG',
+          'Pastikan format file yang dipilih JPEG/JPG/PNG',
           'warning'
         )
         setFileInvalid(true)
@@ -142,7 +141,7 @@ export default function Layout() {
         setFileInvalid(true)
         return
       }
-  
+
       setFileInvalid(false)
       setFile(selectedFile)
     }
@@ -167,12 +166,14 @@ export default function Layout() {
             body: JSON.stringify({
               name: `${fullname}-${new Date(Date.now()).toISOString()}`,
               data: await readFileAsBase64(file),
+              contentType: file.type
             }),
           });
   
           if (response.ok) {
-            const { downloadUrl } = await response.json()
-            setUrl(downloadUrl)
+            const body = await response.json()
+            console.log('=======> ', body.downloadUrl)
+            setUrl(body.downloadUrl)
           } else {
             return response
           }
@@ -191,9 +192,12 @@ export default function Layout() {
       setReason('')
       setGender('')
       setHelping('')
-      setUrl('')
-      setFile(undefined)
       setKas('')
+
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement
+      if (fileInput) {
+        fileInput.value = ''
+      }
     }
 
     const [submitting, setSubmitting] = useState(false)
@@ -224,8 +228,7 @@ export default function Layout() {
       }
 
       handleUpload()
-        .then((resp) => {
-          console.log(resp)
+        .then(() => {
           // axios.post('/api/register', registerData)
           // .then((resp) => {
           //   Swal.fire(
@@ -427,7 +430,13 @@ export default function Layout() {
                         <Tooltip label='Silahkan melakukan transfer ke rekening Bank Central Asia 7745565085 atas nama Isa Fadliatunnisa.'>
                           <Text>Upload bukti transfer : </Text>
                         </Tooltip>
-                        <Input type="file" onChange={handleChageFile} isInvalid={fileInvalid} />
+                        <Input
+                          type="file"
+                          id="fileInput"
+                          onChange={handleChageFile}
+                          isInvalid={fileInvalid}
+                          errorBorderColor='crimson'
+                        />
     
                         <Button
                           fontFamily={'heading'}

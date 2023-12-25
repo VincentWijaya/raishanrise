@@ -1,20 +1,21 @@
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { storage } from '../../service/firebase'
+import { ref, uploadString, getDownloadURL, getStorage } from 'firebase/storage'
+import { getApp } from 'firebase/app'
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      const { name, data } = req.body
+      const firebaseApp = getApp()
+      const { name, data, contentType } = req.body
 
-      const storageRef = ref(storage, `bukti-transfer/${name}`)
+      const storageRef = getStorage(firebaseApp, `gs://${process.env.FIREBASE_STORAGE_BUCKET}`)
+      const fileRef = ref(storageRef, `/bukti-transfer/${name}`)
 
-      await uploadBytes(storageRef, Buffer.from(data, 'base64'))
+      await uploadString(fileRef, data.split(',')[1], 'base64', { contentType: contentType })
 
-      const downloadUrl = await getDownloadURL(storageRef)
+      const downloadUrl = await getDownloadURL(fileRef)
 
       res.status(200).json({ downloadUrl })
     } catch (error) {
-      console.log('===========> ', error)
       console.error('Error uploading the file:', error.message)
       res.status(500).json({ error: 'Internal Server Error' })
     }
