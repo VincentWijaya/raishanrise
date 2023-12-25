@@ -202,7 +202,7 @@ export default function Layout() {
     }
 
     const [submitting, setSubmitting] = useState(false)
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
       event.preventDefault()
 
       setSubmitting(true)
@@ -216,54 +216,52 @@ export default function Layout() {
         return
       }
 
-      const registerData = {
-        fullname: fullname,
-        nickname: nickname,
-        twitter: twitter,
-        line: lineID,
-        regional: regional,
-        reason: reason,
-        gender: gender,
-        helping: helping,
-        kas: kas,
-        buktiTransfer: url
-      }
+      try {
+        await handleUpload()
+    
+        const registerData = {
+          fullname: fullname,
+          nickname: nickname,
+          twitter: twitter,
+          line: lineID,
+          regional: regional,
+          reason: reason,
+          gender: gender,
+          helping: helping,
+          kas: kas,
+          buktiTransfer: url,
+        }
 
-      handleUpload()
-        .then((resp) => {
-          setTimeout(() => {
-            registerData.buktiTransfer = url
-            axios.post('/api/register', registerData)
-            .then(() => {
-              Swal.fire(
-                'Registration Success',
-                'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
-                'success'
-              )
-              setSubmitting(false)
-              clearData()
-            })
-            .catch(() =>{
-              Swal.fire(
-                'Failed to Register',
-                `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
-                'error'
-              )
-              setSubmitting(false)
-              clearData()
-            })
-          }, 1500)
-        })
-        .catch((err) => {
-          console.log(err)
-          Swal.fire(
-            'Failed to Upload file',
-            `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
-            'error'
-          )
-          setSubmitting(false)
-          clearData()
-        })
+        axios
+          .post('/api/register', registerData)
+          .then(() => {
+            Swal.fire(
+              'Registration Success',
+              'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
+              'success'
+            )
+            setSubmitting(false)
+            clearData();
+          })
+          .catch(() => {
+            Swal.fire(
+              'Failed to Register',
+              `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
+              'error'
+            )
+            setSubmitting(false)
+            clearData()
+          })
+      } catch (error) {
+        console.log(error)
+        Swal.fire(
+          'Failed to Upload file',
+          `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
+          'error'
+        )
+        setSubmitting(false)
+        clearData()
+      }
     }
 
     const JOIN_FORM_WORDING = process.env.NEXT_PUBLIC_JOIN_FORM_WORDING
