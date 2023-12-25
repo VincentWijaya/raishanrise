@@ -9,10 +9,11 @@ import {
   InputGroup,
   InputLeftAddon,
   Radio,
-  RadioGroup
+  RadioGroup,
+  Tooltip
 } from "@chakra-ui/react"
 import axios from 'axios'
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 import NavBar from './NavBar'
 import Footer from './Footer'
@@ -103,6 +104,84 @@ export default function Layout() {
     const [helping, setHelping] = useState('')
     const [kas, setKas] = useState('')
 
+    const [file, setFile] = useState(null)
+    const [fileInvalid, setFileInvalid] = useState(false)
+    const [url, setUrl] = useState('')
+  
+    const handleChageFile = (e) => {
+      const selectedFile = e.target.files[0]
+
+      if (!selectedFile) {
+        Swal.fire(
+          'Validation Error',
+          'Pastikan file sudah dipilih',
+          'warning'
+        )
+        setFileInvalid(true)
+        return
+      }
+  
+      const validImageTypes = ['image/jpeg', 'image/png']
+      if (!validImageTypes.includes(selectedFile.type)) {
+        Swal.fire(
+          'Validation Error',
+          'Pastikan format file yang dipilih JPEG/PNG',
+          'warning'
+        )
+        setFileInvalid(true)
+        return
+      }
+
+      const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+      if (selectedFile.size > maxSize) {
+        Swal.fire(
+          'Validation Error',
+          'Pastikan ukuran file tidak melebihi 10MB',
+          'warning'
+        )
+        setFileInvalid(true)
+        return
+      }
+  
+      setFileInvalid(false)
+      setFile(selectedFile)
+    }
+
+    const readFileAsBase64 = (file: File): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => resolve(reader.result as string)
+        reader.onerror = (error) => reject(error)
+        reader.readAsDataURL(file)
+      })
+    }
+
+    const handleUpload = async () => {
+      if (file) {
+        try {
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: `${fullname}-${new Date(Date.now()).toISOString()}`,
+              data: await readFileAsBase64(file),
+            }),
+          });
+  
+          if (response.ok) {
+            const { downloadUrl } = await response.json()
+            setUrl(downloadUrl)
+          } else {
+            return response
+          }
+        } catch (error) {
+          return error
+        }
+      }
+    }
+
     const clearData = () => {
       setFullname('')
       setNickname('')
@@ -112,6 +191,8 @@ export default function Layout() {
       setReason('')
       setGender('')
       setHelping('')
+      setUrl('')
+      setFile(undefined)
       setKas('')
     }
 
@@ -120,7 +201,7 @@ export default function Layout() {
       event.preventDefault()
 
       setSubmitting(true)
-      if (fullnameInvalid || nicknameInvalid || regionalInvalid || twitterInvalid || lineIDInvalid || reasonInvalid || gender == '' || helping == '' || kas == '') {
+      if (fullnameInvalid || nicknameInvalid || regionalInvalid || twitterInvalid || lineIDInvalid || reasonInvalid || gender == '' || helping == '' || file == null || kas == '') {
         Swal.fire(
           'Validation Error',
           'Pastikan semua input sudah benar',
@@ -141,17 +222,30 @@ export default function Layout() {
         helping: helping,
         kas: kas
       }
-      axios.post('/api/register', registerData)
+
+      handleUpload()
         .then((resp) => {
-          Swal.fire(
-            'Registration Success',
-            'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
-            'success'
-          )
+          console.log(resp)
+          // axios.post('/api/register', registerData)
+          // .then((resp) => {
+          //   Swal.fire(
+          //     'Registration Success',
+          //     'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
+          //     'success'
+          //   )
+          // })
+          // .catch((err) =>{
+          //   Swal.fire(
+          //     'Failed to Register',
+          //     `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
+          //     'error'
+          //   )
+          // })
         })
-        .catch((err) =>{
+        .catch((err) => {
+          console.log(err)
           Swal.fire(
-            'Failed to Register',
+            'Failed to Upload file',
             `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
             'error'
           )
@@ -322,13 +416,18 @@ export default function Layout() {
                             <Radio value='Tidak'>Tidak</Radio>
                           </Stack>
                         </RadioGroup>
-                        <Text>Bersedia untung membayar uang kas ?</Text>
+                        <Tooltip label="Uang kas digunakan untuk membantu Raishanrise dalam menjalankan setiap project yang berkaitan dengan Raisha. Mohon bantuannya ya!!">
+                          <Text>Bersedia untung membayar uang kas sebesar Rp 20.000 / bulan ?</Text>
+                        </Tooltip>
                         <RadioGroup onChange={setKas} value={kas}>
                           <Stack direction='row'>
                             <Radio value='Ya'>Ya</Radio>
-                            <Radio value='Tidak'>Tidak</Radio>
                           </Stack>
                         </RadioGroup>
+                        <Tooltip label='Silahkan melakukan transfer ke rekening Bank Central Asia 7745565085 atas nama Isa Fadliatunnisa.'>
+                          <Text>Upload bukti transfer : </Text>
+                        </Tooltip>
+                        <Input type="file" onChange={handleChageFile} isInvalid={fileInvalid} />
     
                         <Button
                           fontFamily={'heading'}
