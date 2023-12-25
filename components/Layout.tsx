@@ -4,21 +4,21 @@ import Footer from './Footer'
 import Hero from '@components/Hero'
 import ScrollTop from './scrolltop'
 import SEO from './SEO'
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export default function Layout() {
     return (
         <>
-            <Box h='calc(100vh)'>
-                <SEO />
-                <SpeedInsights/>
-                <NavBar />
+          <Box h='calc(100vh)'>
+              <SEO />
+              <SpeedInsights/>
+              <NavBar />
 
-                <Hero />
+              <Hero />
 
-                <Footer />
-                <ScrollTop/>
-            </Box>
+              <Footer />
+              <ScrollTop/>
+          </Box>
         </>
     )
 }

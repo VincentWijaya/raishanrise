@@ -14,7 +14,8 @@ import {
   HStack
 } from "@chakra-ui/react"
 import { FaInfoCircle } from 'react-icons/fa'
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useEdgeStore } from '../lib/edgestore'
 
 import NavBar from './NavBar'
 import Footer from './Footer'
@@ -24,6 +25,8 @@ import axios from 'axios'
 import Swal from "sweetalert2"
 
 export default function Layout() {
+    const { edgestore } = useEdgeStore()
+
     const [fullname, setFullname] = useState('')
     const [fullnameInvalid, setFullnameInvalid] = useState(false)
     const handleFullname = (event) => {
@@ -162,22 +165,11 @@ export default function Layout() {
     const handleUpload = async () => {
       if (file) {
         try {
-          const fileBase64 = await readFileAsBase64(file)
-    
-          const response = await axios.post('/api/upload', {
-            name: `${fullname}-${new Date(Date.now()).toISOString()}`,
-            data: fileBase64,
-            contentType: file.type,
+          const res = await edgestore.publicFiles.upload({
+            file,
           })
-    
-          if (response.status === 200) {
-            const { downloadUrl } = response.data
-            setUrl((prevUrl) => {
-              return downloadUrl
-            })
-          } else {
-            throw new Error(`Failed to upload file: ${response.statusText}`)
-          }
+
+          setUrl(res.url)
         } catch (error) {
           throw new Error(`Error during file upload: ${error.message}`)
         }
@@ -202,23 +194,8 @@ export default function Layout() {
     }
 
     const [submitting, setSubmitting] = useState(false)
-    const handleSubmit = async (event) => {
-      event.preventDefault()
-
-      setSubmitting(true)
-      if (fullnameInvalid || nicknameInvalid || regionalInvalid || twitterInvalid || lineIDInvalid || reasonInvalid || gender == '' || helping == '' || file == null || kas == '') {
-        Swal.fire(
-          'Validation Error',
-          'Pastikan semua input sudah benar',
-          'warning'
-        )
-        setSubmitting(false)
-        return
-      }
-
-      try {
-        await handleUpload()
-    
+    useEffect(() => {
+      if (url) {
         const registerData = {
           fullname: fullname,
           nickname: nickname,
@@ -231,7 +208,7 @@ export default function Layout() {
           kas: kas,
           buktiTransfer: url,
         }
-
+  
         axios
           .post('/api/register', registerData)
           .then(() => {
@@ -252,6 +229,25 @@ export default function Layout() {
             setSubmitting(false)
             clearData()
           })
+      }
+    },  [url])
+    
+    const handleSubmit = async (event) => {
+      event.preventDefault()
+
+      setSubmitting(true)
+      if (fullnameInvalid || nicknameInvalid || regionalInvalid || twitterInvalid || lineIDInvalid || reasonInvalid || gender == '' || helping == '' || file == null || kas == '') {
+        Swal.fire(
+          'Validation Error',
+          'Pastikan semua input sudah benar',
+          'warning'
+        )
+        setSubmitting(false)
+        return
+      }
+
+      try {
+        await handleUpload()
       } catch (error) {
         console.log(error)
         Swal.fire(

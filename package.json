@@ -11,6 +11,8 @@
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.7.4",
+    "@edgestore/react": "^0.1.5",
+    "@edgestore/server": "^0.1.5",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@vercel/speed-insights": "^1.0.2",
@@ -26,7 +28,9 @@
     "react-simple-image-slider": "^2.4.1",
     "react-twitter-embed": "^4.0.4",
     "react-typed": "^1.2.0",
-    "sweetalert2": "^11.4.14"
+    "sweetalert2": "^11.4.14",
+    "zod": "^3.22.4",
+    "@edgestore/shared": "0.1.5"
   },
   "devDependencies": {
     "eslint": "8.7.0",
