@@ -10,8 +10,10 @@ import {
   InputLeftAddon,
   Radio,
   RadioGroup,
-  Tooltip
+  Tooltip,
+  HStack
 } from "@chakra-ui/react"
+import { FaInfoCircle } from 'react-icons/fa'
 import { useState } from "react"
 
 import NavBar from './NavBar'
@@ -174,13 +176,12 @@ export default function Layout() {
   
           if (response.ok) {
             const body = await response.json()
-            console.log('=======> ', body.downloadUrl)
             setUrl(body.downloadUrl)
           } else {
-            return response
+            throw new Error(`Failed to upload file: ${response.statusText}`)
           }
         } catch (error) {
-          return error
+          throw new Error(`Error during file upload: ${error.message}`)
         }
       }
     }
@@ -240,6 +241,8 @@ export default function Layout() {
               'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
               'success'
             )
+            setSubmitting(false)
+            clearData()
           })
           .catch(() =>{
             Swal.fire(
@@ -247,6 +250,8 @@ export default function Layout() {
               `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
               'error'
             )
+            setSubmitting(false)
+            clearData()
           })
         })
         .catch((err) => {
@@ -256,10 +261,9 @@ export default function Layout() {
             `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
             'error'
           )
+          setSubmitting(false)
+          clearData()
         })
-
-      setSubmitting(false)
-      clearData()
     }
 
     const JOIN_FORM_WORDING = process.env.NEXT_PUBLIC_JOIN_FORM_WORDING
@@ -424,7 +428,10 @@ export default function Layout() {
                           </Stack>
                         </RadioGroup>
                         <Tooltip label="Uang kas digunakan untuk membantu Raishanrise dalam menjalankan setiap project yang berkaitan dengan Raisha. Mohon bantuannya ya!!">
-                          <Text>Bersedia untung membayar uang kas sebesar Rp 20.000 / bulan ?</Text>
+                          <HStack spacing="5px">
+                            <Text>Bersedia untung membayar uang kas sebesar Rp 20.000 / bulan ?</Text>
+                            <FaInfoCircle />
+                          </HStack>
                         </Tooltip>
                         <RadioGroup onChange={setKas} value={kas}>
                           <Stack direction='row'>
@@ -432,7 +439,10 @@ export default function Layout() {
                           </Stack>
                         </RadioGroup>
                         <Tooltip label='Silahkan melakukan transfer ke rekening Bank Central Asia 7745565085 atas nama Isa Fadliatunnisa.'>
-                          <Text>Upload bukti transfer : </Text>
+                          <HStack spacing="5px">
+                            <Text>Upload bukti transfer : </Text>
+                            <FaInfoCircle />
+                          </HStack>
                         </Tooltip>
                         <Input
                           type="file"
@@ -441,7 +451,7 @@ export default function Layout() {
                           isInvalid={fileInvalid}
                           errorBorderColor='crimson'
                         />
-    
+
                         <Button
                           fontFamily={'heading'}
                           mt={8}
@@ -452,12 +462,13 @@ export default function Layout() {
                             bgGradient: 'linear(to-r, blue.400,blue.500)',
                             boxShadow: 'xl',
                           }}
+                          disabled={submitting}
                           onClick={handleSubmit}
                           isLoading={submitting}
                           loadingText='Submitting'
                           colorScheme='blue'
                           variant='outline'
-                          >
+                        >
                           Submit
                         </Button>
                       </Stack>
