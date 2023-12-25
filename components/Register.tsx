@@ -162,23 +162,19 @@ export default function Layout() {
     const handleUpload = async () => {
       if (file) {
         try {
-          const response = await fetch('/api/upload', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              name: `${fullname}-${new Date(Date.now()).toISOString()}`,
-              data: await readFileAsBase64(file),
-              contentType: file.type
-            }),
-          });
-  
-          if (response.ok) {
-            const body = await response.json()
-            setTimeout(() => {
-              setUrl(body.downloadUrl)
-            }, 300)
+          const fileBase64 = await readFileAsBase64(file)
+    
+          const response = await axios.post('/api/upload', {
+            name: `${fullname}-${new Date(Date.now()).toISOString()}`,
+            data: fileBase64,
+            contentType: file.type,
+          })
+    
+          if (response.status === 200) {
+            const { downloadUrl } = response.data
+            setUrl((prevUrl) => {
+              return downloadUrl
+            })
           } else {
             throw new Error(`Failed to upload file: ${response.statusText}`)
           }
@@ -220,7 +216,7 @@ export default function Layout() {
         return
       }
 
-      let registerData = {
+      const registerData = {
         fullname: fullname,
         nickname: nickname,
         twitter: twitter,
@@ -230,12 +226,14 @@ export default function Layout() {
         gender: gender,
         helping: helping,
         kas: kas,
-        buktiTransfer: ''
+        buktiTransfer: url
       }
 
       handleUpload()
         .then((resp) => {
-          registerData.buktiTransfer = url
+          setTimeout(() => {
+            registerData.buktiTransfer = url
+          }, 300)
           axios.post('/api/register', registerData)
           .then(() => {
             Swal.fire(

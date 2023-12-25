@@ -19,6 +19,7 @@ export default async (req, res) => {
           kas,
           buktiTransfer
         } = req.body
+        console.log(req.body)
         const telegramData = {
           chat_id: '-1001611289340',
           text: `============================\nAda member baru nih!!!!!\n\nNama: ${fullname}\nPanggilan: ${nickname}\nJenis Kelamin: ${gender}\nTwitter: https://twitter.com/${twitter}\nLine:  http://line.me/ti/p/~${line}\nRegion: ${regional}\nAlasan join: ${reason}\nMau bantu project? ${helping}\nMau bayar uang kas? ${kas}\nBukti transfer: ${buktiTransfer}`

@@ -14,6 +14,7 @@ export default async function handler(req, res) {
 
       const downloadUrl = await getDownloadURL(fileRef)
 
+      console.log(downloadUrl)
       res.status(200).json({ downloadUrl })
     } catch (error) {
       console.error('Error uploading the file:', error.message)
