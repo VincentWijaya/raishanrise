@@ -176,7 +176,9 @@ export default function Layout() {
   
           if (response.ok) {
             const body = await response.json()
-            setUrl(body.downloadUrl)
+            setTimeout(() => {
+              setUrl(body.downloadUrl)
+            }, 300)
           } else {
             throw new Error(`Failed to upload file: ${response.statusText}`)
           }
@@ -218,7 +220,7 @@ export default function Layout() {
         return
       }
 
-      const registerData = {
+      let registerData = {
         fullname: fullname,
         nickname: nickname,
         twitter: twitter,
@@ -232,7 +234,7 @@ export default function Layout() {
       }
 
       handleUpload()
-        .then(() => {
+        .then((resp) => {
           registerData.buktiTransfer = url
           axios.post('/api/register', registerData)
           .then(() => {
