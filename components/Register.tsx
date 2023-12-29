@@ -153,15 +153,6 @@ export default function Layout() {
       setFile(selectedFile)
     }
 
-    const readFileAsBase64 = (file: File): Promise<string> => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader()
-        reader.onload = () => resolve(reader.result as string)
-        reader.onerror = (error) => reject(error)
-        reader.readAsDataURL(file)
-      })
-    }
-
     const handleUpload = async () => {
       if (file) {
         try {
@@ -261,6 +252,8 @@ export default function Layout() {
     }
 
     const JOIN_FORM_WORDING = process.env.NEXT_PUBLIC_JOIN_FORM_WORDING
+    const [showTransferTooltip, setShowTransferTooltip] = useState(false)
+    const [showAckTransferTooltip, setShowAckTransferTooltip] = useState(false)
 
     return (
         <>
@@ -421,10 +414,10 @@ export default function Layout() {
                             <Radio value='Tidak'>Tidak</Radio>
                           </Stack>
                         </RadioGroup>
-                        <Tooltip label="Uang kas digunakan untuk membantu Raishanrise dalam menjalankan setiap project yang berkaitan dengan Raisha. Mohon bantuannya ya!!">
-                          <HStack spacing="5px">
+                        <Tooltip isOpen={showAckTransferTooltip} label="Uang kas digunakan untuk membantu Raishanrise dalam menjalankan setiap project yang berkaitan dengan Raisha. Mohon bantuannya ya!!">
+                          <HStack onMouseEnter={() => setShowAckTransferTooltip(true)} onMouseLeave={() => setShowAckTransferTooltip(false)} spacing="5px">
                             <Text>Bersedia untung membayar uang kas sebesar Rp 20.000 / bulan ?</Text>
-                            <FaInfoCircle />
+                            <FaInfoCircle onClick={() => setShowAckTransferTooltip(!showAckTransferTooltip)} />
                           </HStack>
                         </Tooltip>
                         <RadioGroup onChange={setKas} value={kas}>
@@ -432,10 +425,10 @@ export default function Layout() {
                             <Radio value='Ya'>Ya</Radio>
                           </Stack>
                         </RadioGroup>
-                        <Tooltip label='Silahkan melakukan transfer ke rekening Bank Central Asia 7745565085 atas nama Isa Fadliatunnisa.'>
-                          <HStack spacing="5px">
+                        <Tooltip isOpen={showTransferTooltip} label='Silahkan melakukan transfer ke rekening Bank Central Asia 7745565085 atas nama Isa Fadliatunnisa.'>
+                          <HStack onMouseEnter={() => setShowTransferTooltip(true)} onMouseLeave={() => setShowTransferTooltip(false)} spacing="5px">
                             <Text>Upload bukti transfer : </Text>
-                            <FaInfoCircle />
+                            <FaInfoCircle onClick={() => setShowTransferTooltip(!showTransferTooltip)} />
                           </HStack>
                         </Tooltip>
                         <Input
