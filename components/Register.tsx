@@ -9,17 +9,24 @@ import {
   InputGroup,
   InputLeftAddon,
   Radio,
-  RadioGroup
+  RadioGroup,
+  Tooltip,
+  HStack
 } from "@chakra-ui/react"
-import axios from 'axios'
+import { FaInfoCircle } from 'react-icons/fa'
 import { useState, useEffect } from "react"
+import { useEdgeStore } from '../lib/edgestore'
 
 import NavBar from './NavBar'
 import Footer from './Footer'
 import SEO from './SEO'
+
+import axios from 'axios'
 import Swal from "sweetalert2"
 
 export default function Layout() {
+    const { edgestore } = useEdgeStore()
+
     const [fullname, setFullname] = useState('')
     const [fullnameInvalid, setFullnameInvalid] = useState(false)
     const handleFullname = (event) => {
@@ -103,6 +110,72 @@ export default function Layout() {
     const [helping, setHelping] = useState('')
     const [kas, setKas] = useState('')
 
+    const [file, setFile] = useState(null)
+    const [fileInvalid, setFileInvalid] = useState(false)
+    const [url, setUrl] = useState('')
+  
+    const handleChageFile = (e) => {
+      const selectedFile = e.target.files[0]
+
+      if (!selectedFile) {
+        Swal.fire(
+          'Validation Error',
+          'Pastikan file sudah dipilih',
+          'warning'
+        )
+        setFileInvalid(true)
+        return
+      }
+  
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg']
+      if (!validImageTypes.includes(selectedFile.type)) {
+        Swal.fire(
+          'Validation Error',
+          'Pastikan format file yang dipilih JPEG/JPG/PNG',
+          'warning'
+        )
+        setFileInvalid(true)
+        return
+      }
+
+      const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+      if (selectedFile.size > maxSize) {
+        Swal.fire(
+          'Validation Error',
+          'Pastikan ukuran file tidak melebihi 10MB',
+          'warning'
+        )
+        setFileInvalid(true)
+        return
+      }
+
+      setFileInvalid(false)
+      setFile(selectedFile)
+    }
+
+    const readFileAsBase64 = (file: File): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => resolve(reader.result as string)
+        reader.onerror = (error) => reject(error)
+        reader.readAsDataURL(file)
+      })
+    }
+
+    const handleUpload = async () => {
+      if (file) {
+        try {
+          const res = await edgestore.publicFiles.upload({
+            file,
+          })
+
+          setUrl(res.url)
+        } catch (error) {
+          throw new Error(`Error during file upload: ${error.message}`)
+        }
+      }
+    }
+
     const clearData = () => {
       setFullname('')
       setNickname('')
@@ -113,14 +186,57 @@ export default function Layout() {
       setGender('')
       setHelping('')
       setKas('')
+
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement
+      if (fileInput) {
+        fileInput.value = ''
+      }
     }
 
     const [submitting, setSubmitting] = useState(false)
-    const handleSubmit = (event) => {
+    useEffect(() => {
+      if (url) {
+        const registerData = {
+          fullname: fullname,
+          nickname: nickname,
+          twitter: twitter,
+          line: lineID,
+          regional: regional,
+          reason: reason,
+          gender: gender,
+          helping: helping,
+          kas: kas,
+          buktiTransfer: url,
+        }
+  
+        axios
+          .post('/api/register', registerData)
+          .then(() => {
+            Swal.fire(
+              'Registration Success',
+              'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
+              'success'
+            )
+            setSubmitting(false)
+            clearData();
+          })
+          .catch(() => {
+            Swal.fire(
+              'Failed to Register',
+              `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
+              'error'
+            )
+            setSubmitting(false)
+            clearData()
+          })
+      }
+    },  [url])
+    
+    const handleSubmit = async (event) => {
       event.preventDefault()
 
       setSubmitting(true)
-      if (fullnameInvalid || nicknameInvalid || regionalInvalid || twitterInvalid || lineIDInvalid || reasonInvalid || gender == '' || helping == '' || kas == '') {
+      if (fullnameInvalid || nicknameInvalid || regionalInvalid || twitterInvalid || lineIDInvalid || reasonInvalid || gender == '' || helping == '' || file == null || kas == '') {
         Swal.fire(
           'Validation Error',
           'Pastikan semua input sudah benar',
@@ -130,35 +246,18 @@ export default function Layout() {
         return
       }
 
-      const registerData = {
-        fullname: fullname,
-        nickname: nickname,
-        twitter: twitter,
-        line: lineID,
-        regional: regional,
-        reason: reason,
-        gender: gender,
-        helping: helping,
-        kas: kas
+      try {
+        await handleUpload()
+      } catch (error) {
+        console.log(error)
+        Swal.fire(
+          'Failed to Upload file',
+          `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
+          'error'
+        )
+        setSubmitting(false)
+        clearData()
       }
-      axios.post('/api/register', registerData)
-        .then((resp) => {
-          Swal.fire(
-            'Registration Success',
-            'Data kamu sudah kami terima. Proses registrasi membutuhkan beberapa saat, mohon bersabar ya!',
-            'success'
-          )
-        })
-        .catch((err) =>{
-          Swal.fire(
-            'Failed to Register',
-            `Oops, saat ini server kami sedang bermasalah. Jangan khawatir, kamu masih bisa melakukan pendaftaran melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLScMcUI4n_IwsTcawbVSVl4O7luJ4C-QUncmFlnaohYuGMFE5A/viewform" target="_blank">link ini</a>`,
-            'error'
-          )
-        })
-
-      setSubmitting(false)
-      clearData()
     }
 
     const JOIN_FORM_WORDING = process.env.NEXT_PUBLIC_JOIN_FORM_WORDING
@@ -322,14 +421,31 @@ export default function Layout() {
                             <Radio value='Tidak'>Tidak</Radio>
                           </Stack>
                         </RadioGroup>
-                        <Text>Bersedia untung membayar uang kas ?</Text>
+                        <Tooltip label="Uang kas digunakan untuk membantu Raishanrise dalam menjalankan setiap project yang berkaitan dengan Raisha. Mohon bantuannya ya!!">
+                          <HStack spacing="5px">
+                            <Text>Bersedia untung membayar uang kas sebesar Rp 20.000 / bulan ?</Text>
+                            <FaInfoCircle />
+                          </HStack>
+                        </Tooltip>
                         <RadioGroup onChange={setKas} value={kas}>
                           <Stack direction='row'>
                             <Radio value='Ya'>Ya</Radio>
-                            <Radio value='Tidak'>Tidak</Radio>
                           </Stack>
                         </RadioGroup>
-    
+                        <Tooltip label='Silahkan melakukan transfer ke rekening Bank Central Asia 7745565085 atas nama Isa Fadliatunnisa.'>
+                          <HStack spacing="5px">
+                            <Text>Upload bukti transfer : </Text>
+                            <FaInfoCircle />
+                          </HStack>
+                        </Tooltip>
+                        <Input
+                          type="file"
+                          id="fileInput"
+                          onChange={handleChageFile}
+                          isInvalid={fileInvalid}
+                          errorBorderColor='crimson'
+                        />
+
                         <Button
                           fontFamily={'heading'}
                           mt={8}
@@ -340,12 +456,13 @@ export default function Layout() {
                             bgGradient: 'linear(to-r, blue.400,blue.500)',
                             boxShadow: 'xl',
                           }}
+                          disabled={submitting}
                           onClick={handleSubmit}
                           isLoading={submitting}
                           loadingText='Submitting'
                           colorScheme='blue'
                           variant='outline'
-                          >
+                        >
                           Submit
                         </Button>
                       </Stack>

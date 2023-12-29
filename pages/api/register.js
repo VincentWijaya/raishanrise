@@ -16,11 +16,13 @@ export default async (req, res) => {
           reason,
           gender,
           helping,
-          kas
+          kas,
+          buktiTransfer
         } = req.body
+        console.log(req.body)
         const telegramData = {
           chat_id: '-1001611289340',
-          text: `============================\nAda member baru nih!!!!!\n\nNama: ${fullname}\nPanggilan: ${nickname}\nJenis Kelamin: ${gender}\nTwitter: https://twitter.com/${twitter}\nLine:  http://line.me/ti/p/~${line}\nRegion: ${regional}\nAlasan join: ${reason}\nMau bantu project? ${helping}\nMau bayar uang kas? ${kas}`
+          text: `============================\nAda member baru nih!!!!!\n\nNama: ${fullname}\nPanggilan: ${nickname}\nJenis Kelamin: ${gender}\nTwitter: https://twitter.com/${twitter}\nLine:  http://line.me/ti/p/~${line}\nRegion: ${regional}\nAlasan join: ${reason}\nMau bantu project? ${helping}\nMau bayar uang kas? ${kas}\nBukti transfer: ${buktiTransfer}`
         }
 
         addDoc(collection(db, 'register-list'), {
@@ -32,7 +34,8 @@ export default async (req, res) => {
           region: regional,
           reason: reason,
           help: helping,
-          kas: kas
+          kas: kas,
+          buktiTransfer: buktiTransfer
         })
 
         axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, querystring.stringify(telegramData))
