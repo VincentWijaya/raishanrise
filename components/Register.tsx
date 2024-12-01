@@ -416,7 +416,7 @@ export default function Layout() {
                         </RadioGroup>
                         <Tooltip isOpen={showAckTransferTooltip} label="Uang kas digunakan untuk membantu Raishanrise dalam menjalankan setiap project yang berkaitan dengan Raisha. Mohon bantuannya ya!!">
                           <HStack onMouseEnter={() => setShowAckTransferTooltip(true)} onMouseLeave={() => setShowAckTransferTooltip(false)} spacing="5px">
-                            <Text>Bersedia untung membayar uang kas sebesar Rp 20.000 / bulan ?</Text>
+                            <Text>Bersedia untung membayar uang kas sebesar Rp 35.000 / bulan ?</Text>
                             <FaInfoCircle onClick={() => setShowAckTransferTooltip(!showAckTransferTooltip)} />
                           </HStack>
                         </Tooltip>
