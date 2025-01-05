@@ -252,6 +252,7 @@ export default function Layout() {
     }
 
     const JOIN_FORM_WORDING = process.env.NEXT_PUBLIC_JOIN_FORM_WORDING
+    const JOIN_AMOUNT = process.env.NEXT_PUBLIC_JOIN_AMOUNT || '25.000'
     const [showTransferTooltip, setShowTransferTooltip] = useState(false)
     const [showAckTransferTooltip, setShowAckTransferTooltip] = useState(false)
 
@@ -416,7 +417,7 @@ export default function Layout() {
                         </RadioGroup>
                         <Tooltip isOpen={showAckTransferTooltip} label="Uang kas digunakan untuk membantu Raishanrise dalam menjalankan setiap project yang berkaitan dengan Raisha. Mohon bantuannya ya!!">
                           <HStack onMouseEnter={() => setShowAckTransferTooltip(true)} onMouseLeave={() => setShowAckTransferTooltip(false)} spacing="5px">
-                            <Text>Bersedia untung membayar uang kas sebesar Rp 35.000 / bulan ?</Text>
+                            <Text>Bersedia untung membayar uang kas sebesar Rp { JOIN_AMOUNT } / bulan ?</Text>
                             <FaInfoCircle onClick={() => setShowAckTransferTooltip(!showAckTransferTooltip)} />
                           </HStack>
                         </Tooltip>
