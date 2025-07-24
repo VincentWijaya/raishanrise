@@ -3,8 +3,14 @@ import PropTypes from "prop-types"
 import Head from "next/head"
 import settings from "../settings"
 
-const SEO = (props) => {
-  const { title, description, image } = props
+const SEO = ({
+  title = settings && settings.meta && settings.meta.title,
+  description = settings && settings.meta && settings.meta.description,
+  image = settings &&
+    settings.meta &&
+    settings.meta.social &&
+    settings.meta.social.graphic,
+}) => {
   return (
     <Head>
       <title>{title}</title>
@@ -20,16 +26,6 @@ const SEO = (props) => {
       <meta name="twitter:creator" content='@kuli_coding' key="twhandle" />
     </Head>
   )
-}
-
-SEO.defaultProps = {
-  title: settings && settings.meta && settings.meta.title,
-  description: settings && settings.meta && settings.meta.description,
-  image:
-    settings &&
-    settings.meta &&
-    settings.meta.social &&
-    settings.meta.social.graphic,
 }
 
 SEO.propTypes = {
