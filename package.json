@@ -1,6 +1,9 @@
 {
   "name": "raishanrise",
   "private": false,
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,32 +12,33 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^1.1.1",
-    "@chakra-ui/react": "^1.7.4",
-    "@edgestore/react": "^0.1.5",
-    "@edgestore/server": "^0.1.5",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@vercel/speed-insights": "^1.0.2",
-    "axios": "^0.27.1",
-    "firebase": "^9.6.11",
-    "framer-motion": "^5.6.0",
-    "next": "^13.4.4",
-    "next-sitemap": "^3.0.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.3.1",
+    "@chakra-ui/icons": "^2.2.4",
+    "@chakra-ui/react": "^2.10.4",
+    "@edgestore/react": "^0.2.2",
+    "@edgestore/server": "^0.2.2",
+    "@edgestore/shared": "^0.2.2",
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@vercel/speed-insights": "^1.1.0",
+    "axios": "^1.7.9",
+    "firebase": "^11.2.0",
+    "framer-motion": "^11.13.5",
+    "next": "^15.1.6",
+    "next-sitemap": "^4.2.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
     "react-responsive-carousel": "^3.2.23",
     "react-simple-image-slider": "^2.4.1",
     "react-twitter-embed": "^4.0.4",
-    "react-typed": "^1.2.0",
-    "sweetalert2": "^11.4.14",
-    "zod": "^3.22.4",
-    "@edgestore/shared": "0.1.5"
+    "react-typed": "^2.0.12",
+    "sweetalert2": "^11.14.5",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
-    "eslint": "8.7.0",
-    "eslint-config-next": "12.0.8",
-    "typescript": "^4.6.3"
+    "@types/react": "19.1.8",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^15.1.6",
+    "typescript": "^5.7.3"
   }
 }

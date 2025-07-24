@@ -20,7 +20,7 @@ import { useState, useEffect } from 'react'
 import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
 import axios from 'axios'
 
-import Twitter from './Twtiter'
+import Twitter from './Twitter'
 import Instagram from './Instagram'
 import Tiktok from './Tiktok'
 
@@ -238,20 +238,6 @@ export default function CallToActionWithVideo() {
         pb='10vh'
       >
         <Twitter />
-      </Box>
-
-      <Box
-        pt='1vh'
-        pb='10vh'
-      >
-        <Instagram />
-      </Box>
-
-      <Box
-        pt='1vh'
-        pb='30vh'
-      >
-        <Tiktok />
       </Box>
     </Container>
   )
