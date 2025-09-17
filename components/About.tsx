@@ -26,8 +26,8 @@ export default function Layout() {
                     direction={{ base: 'column', sm: 'row' }}
                     >
                       <Avatar
-                        size={'3xl'}
-                        src='/images/raishanrise.jpeg'
+                        size={'2xl'}
+                        src='/images/favicon.svg'
                         css={{
                           border: '2px solid grey',
                         }}
