@@ -11,11 +11,21 @@ import {
   Radio,
   RadioGroup,
   Tooltip,
-  HStack
+  HStack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  VStack
 } from "@chakra-ui/react"
-import { FaInfoCircle } from 'react-icons/fa'
+import { FaInfoCircle, FaQrcode } from 'react-icons/fa'
 import { useState, useEffect } from "react"
 import { useEdgeStore } from '../lib/edgestore'
+import QRCode from 'react-qr-code'
 
 import NavBar from './NavBar'
 import Footer from './Footer'
@@ -253,8 +263,13 @@ export default function Layout() {
 
     const JOIN_FORM_WORDING = process.env.NEXT_PUBLIC_JOIN_FORM_WORDING
     const JOIN_AMOUNT = process.env.NEXT_PUBLIC_JOIN_AMOUNT || '25.000'
+    const KAS_WORDING = process.env.NEXT_PUBLIC_KAS_WORDING || `Bersedia untuk membayar uang kas sebesar Rp ${JOIN_AMOUNT} / bulan ?`
+    const BANK_LABEL_TOOLTIP = process.env.NEXT_PUBLIC_BANK_DETAIL || 'Silahkan melakukan transfer ke rekening Bank Central Asia 5250362970 a/n Arif Laksono. Atau bisa juga meggunakan QRIS dibawah ini ya!'
     const [showTransferTooltip, setShowTransferTooltip] = useState(false)
     const [showAckTransferTooltip, setShowAckTransferTooltip] = useState(false)
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const QRIS_STRING = '00020101021126610014COM.GO-JEK.WWW01189360091430988229730210G0988229730303UMI51440014ID.CO.QRIS.WWW0215ID10254363642080303UMI5204721053033605802ID5920Raishanrise, Laundry6013JAKARTA TIMUR61051363062070703A016304FA7A'
 
     return (
         <>
@@ -417,7 +432,7 @@ export default function Layout() {
                         </RadioGroup>
                         <Tooltip isOpen={showAckTransferTooltip} label="Uang kas digunakan untuk membantu Raishanrise dalam menjalankan setiap project yang berkaitan dengan Raisha. Mohon bantuannya ya!!">
                           <HStack onMouseEnter={() => setShowAckTransferTooltip(true)} onMouseLeave={() => setShowAckTransferTooltip(false)} spacing="5px">
-                            <Text>Bersedia untung membayar uang kas sebesar Rp { JOIN_AMOUNT } / bulan ?</Text>
+                            <Text>{KAS_WORDING}</Text>
                             <FaInfoCircle onClick={() => setShowAckTransferTooltip(!showAckTransferTooltip)} />
                           </HStack>
                         </Tooltip>
@@ -426,7 +441,8 @@ export default function Layout() {
                             <Radio value='Ya'>Ya</Radio>
                           </Stack>
                         </RadioGroup>
-                        <Tooltip isOpen={showTransferTooltip} label='Silahkan melakukan transfer ke rekening Bank Central Asia 7745565085 atas nama Isa Fadliatunnisa.'>
+
+                        <Tooltip isOpen={showTransferTooltip} label={BANK_LABEL_TOOLTIP}>
                           <HStack onMouseEnter={() => setShowTransferTooltip(true)} onMouseLeave={() => setShowTransferTooltip(false)} spacing="5px">
                             <Text>Upload bukti transfer : </Text>
                             <FaInfoCircle onClick={() => setShowTransferTooltip(!showTransferTooltip)} />
@@ -439,6 +455,17 @@ export default function Layout() {
                           isInvalid={fileInvalid}
                           errorBorderColor='crimson'
                         />
+
+                        <Button
+                          leftIcon={<FaQrcode />}
+                          colorScheme="green"
+                          variant="outline"
+                          onClick={onOpen}
+                          w={'full'}
+                          mt={4}
+                        >
+                          Tampilkan QRIS
+                        </Button>
 
                         <Button
                           fontFamily={'heading'}
@@ -466,6 +493,45 @@ export default function Layout() {
 
                 <Footer />
             </Box>
+
+            <Modal isOpen={isOpen} onClose={onClose} size="lg">
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>QRIS - Raishanrise</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <VStack spacing={4}>
+                    <Text textAlign="center" fontSize="sm" color="gray.600">
+                      Scan QRIS ini untuk melakukan pembayaran melalui ewallet atau mobile banking
+                    </Text>
+                    <Box 
+                      p={4} 
+                      bg="white" 
+                      borderRadius="md" 
+                      boxShadow="md"
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <QRCode
+                        size={256}
+                        style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                        value={QRIS_STRING}
+                        viewBox={`0 0 256 256`}
+                      />
+                    </Box>
+                    <Text textAlign="center" fontSize="xs" color="gray.500">
+                      Raishanrise - Jakarta Timur
+                    </Text>
+                  </VStack>
+                </ModalBody>
+                <ModalFooter>
+                  <Button colorScheme="blue" mr={3} onClick={onClose}>
+                    Tutup
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
         </>
     )
 }
