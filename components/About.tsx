@@ -14,7 +14,7 @@ export default function Layout() {
     return (
         <>
             <Box h='calc(100vh)'>
-                <SEO description={ desc } image='https://raishanrise.my.id/images/raishanrise.jpg' title='About - Raishanrise Official Website'/>
+                <SEO description={ desc } image='https://raishanrise.my.id/images/favicon.svg' title='About - Raishanrise Official Website'/>
                 <NavBar />
 
                 <Container maxW={'7xl'} pt='10vh' height={'100%'}>
