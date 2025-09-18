@@ -105,7 +105,7 @@ export default function CallToActionWithVideo() {
   }, [])
 
   return (
-    <Container maxW={'7xl'} pt='5vh' height={'100%'}>
+    <Container maxW={'7xl'} pt='5vh' height={'100%'} py={{ base: 40, md: 40 }}>
       <Countdown />
       
       <Stack
