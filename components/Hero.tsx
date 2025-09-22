@@ -23,7 +23,6 @@ import axios from 'axios'
 import Twitter from './Twitter'
 import Instagram from './Instagram'
 import Tiktok from './Tiktok'
-import Countdown from './Countdown'
 
 export default function CallToActionWithVideo() {
   const [ isPlaying, setPlay ] = useState(false)
@@ -106,8 +105,6 @@ export default function CallToActionWithVideo() {
 
   return (
     <Container maxW={'7xl'} pt='5vh' height={'100%'} py={{ base: 40, md: 40 }}>
-      <Countdown />
-      
       <Stack
         align={'center'}
         spacing={{ base: 8, md: 10 }}

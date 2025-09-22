@@ -4,6 +4,7 @@ import Footer from './Footer'
 import Hero from '@components/Hero'
 import ScrollTop from './scrolltop'
 import SEO from './SEO'
+import Countdown from './Countdown'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export default function Layout() {
@@ -14,6 +15,7 @@ export default function Layout() {
               <SpeedInsights/>
               <NavBar />
 
+              <Countdown/>
               <Hero />
 
               <Footer />

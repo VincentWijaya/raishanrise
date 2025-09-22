@@ -107,7 +107,7 @@ export default function Countdown() {
   }
 
   return (
-    <Container maxW="6xl" py="20">
+    <Container maxW="6xl" py={{ base: 40, md: 40 }}>
       <VStack spacing={8}>
         <VStack spacing={4} textAlign="center">
           <Heading
