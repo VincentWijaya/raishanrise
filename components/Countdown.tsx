@@ -1,15 +1,15 @@
 import {
   Container,
-  Stack,
-  Flex,
   Box,
   Heading,
   Text,
   VStack,
   HStack,
   useColorModeValue,
-  Center,
+  Image,
   Divider,
+  useBreakpointValue,
+  Stack,
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import Confetti from 'react-confetti'
@@ -34,6 +34,12 @@ export default function Countdown() {
 
   const showCountdown = process.env.NEXT_PUBLIC_SHOW_COUNTDOWN === 'true'
   const countdownDate = process.env.NEXT_PUBLIC_COUNTDOWN_DATE
+  const showBanner = process.env.NEXT_PUBLIC_SHOW_BANNER === 'true'
+
+  const bannerImage = useBreakpointValue({
+    base: '/images/header-mobile.png',
+    md: '/images/header.png',
+  })
 
   useEffect(() => {
     const updateWindowSize = () => {
@@ -75,12 +81,22 @@ export default function Countdown() {
 
         setTimeout(() => {
           setShowConfetti(false)
-        }, 10000)
+        }, 15000)
       }
     }, 1000)
 
     return () => clearInterval(timer)
   }, [showCountdown, countdownDate])
+
+  const banner = () => {
+    return (
+      <Image
+        alt={'Header 18 and beyond'}
+        src={bannerImage}
+        objectFit="contain"
+      />
+    )
+  }
 
   const cardBg = useColorModeValue('gray.50', 'gray.700')
   const textColor = useColorModeValue('gray.800', 'white')
@@ -101,6 +117,12 @@ export default function Countdown() {
             numberOfPieces={500}
             gravity={0.3}
           />
+        )}
+
+        {showBanner && (
+          <Box w="100%" pt={{ base: '33%', md: '6%' }} display="flex" justifyContent="center" alignItems="center">
+            {banner()}
+          </Box>
         )}
       </>
     )

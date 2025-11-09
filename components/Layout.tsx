@@ -10,12 +10,12 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 export default function Layout() {
     return (
         <>
-          <Box h='calc(100vh)'>
+          <Box>
               <SEO />
               <SpeedInsights/>
               <NavBar />
 
-              <Countdown/>
+              <Countdown />
               <Hero />
 
               <Footer />
