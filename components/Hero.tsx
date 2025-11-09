@@ -104,7 +104,7 @@ export default function CallToActionWithVideo() {
   }, [])
 
   return (
-    <Container maxW={'7xl'} pt='5vh' height={'100%'} py={{ base: 40, md: 40 }}>
+    <Container maxW={'7xl'} pt='5vh' py={{ base: 40, md: 40 }}>
       <Stack
         align={'center'}
         spacing={{ base: 8, md: 10 }}
@@ -198,7 +198,7 @@ export default function CallToActionWithVideo() {
           w={'full'}>
           <Blob
             w={'150%'}
-            h={'150%'}
+            h={'100%'}
             position={'absolute'}
             top={'-20%'}
             left={0}
@@ -233,7 +233,7 @@ export default function CallToActionWithVideo() {
       </Stack>
 
       <Box
-        pt='1vh'
+        pt='5vh'
         pb='10vh'
       >
         <Twitter />
